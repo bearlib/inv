@@ -7,6 +7,7 @@ uses uItems;
 function Ground_Clear(): Boolean; stdcall;
 function Ground_Count(): Cardinal; stdcall;
 function Ground_Count_InTile(AX, AY: Word): Cardinal; stdcall;
+function Ground_Item_By_Index(Index: Cardinal): TItem; stdcall;
 function Ground_Items(): TItems; stdcall;
 function Ground_Items_InTile(AX, AY: Cardinal): TItems; stdcall;
 function Ground_Items_Append(AItem: TItem): Boolean; stdcall;
@@ -37,6 +38,11 @@ begin
   for I := 0 to Length(Items) - 1 do
     if (Items[I].X = AX) and (Items[I].Y = AY) then
       Inc(Result);
+end;
+
+function Ground_Item_By_Index(Index: Cardinal): TItem;
+begin
+  Result := Items[Index];
 end;
 
 function Ground_Items(): TItems;
