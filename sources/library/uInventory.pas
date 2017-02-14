@@ -5,49 +5,49 @@ interface
 uses uItems;
 
 function Inventory_Clear(): Boolean; stdcall;
-function Inventory_Count(): Cardinal; stdcall;
+function Inventory_Count(): Integer; stdcall;
 function Inventory_Items(): TItems; stdcall;
 function Inventory_Items_Append(AItem: TItem): Boolean; stdcall;
-function Inventory_Items_Delete(Index: Cardinal): Boolean; stdcall;
+function Inventory_Items_Delete(Index: Integer): Boolean; stdcall;
 
 implementation
 
 var
-  Items: TItems;
+  InvItems: TItems;
 
 function Inventory_Clear(): Boolean;
 begin
-  Result := (Length(Items) > 0);
-  SetLength(Items, 0);
+  Result := (Length(InvItems) > 0);
+  SetLength(InvItems, 0);
 end;
 
-function Inventory_Count(): Cardinal;
+function Inventory_Count(): Integer;
 begin
-  Result := Length(Items);
+  Result := Length(InvItems);
 end;
 
 function Inventory_Items(): TItems;
 begin
-  Result := Items;
+  Result := InvItems;
 end;
 
 function Inventory_Items_Append(AItem: TItem): Boolean;
 begin
   Result := False;
-  SetLength(Items, Length(Items) + 1);
-  Items[Length(Items) - 1] := AItem;
+  SetLength(InvItems, Length(InvItems) + 1);
+  InvItems[Length(InvItems) - 1] := AItem;
   Result := True;
 end;
 
-function Inventory_Items_Delete(Index: Cardinal): Boolean;
+function Inventory_Items_Delete(Index: Integer): Boolean;
 var
   I: Integer;
 begin
   Result := False;
-  if (Length(Items) <= 0) or (Index > Length(Items) - 1) then Exit;
-  for I := Index to Length(Items) - 2 do
-    Items[I] := Items[I + 1];
-  SetLength(Items, Length(Items) - 1);
+  if (Length(InvItems) <= 0) or (Index > Length(InvItems) - 1) then Exit;
+  for I := Index to Length(InvItems) - 2 do
+    InvItems[I] := InvItems[I + 1];
+  SetLength(InvItems, Length(InvItems) - 1);
   Result := True;
 end;
 

@@ -4,7 +4,7 @@ interface
 
 type
   TItem = record
-    ID, X, Y: Cardinal;
+    ID, X, Y: Integer;
   end;
 
 type

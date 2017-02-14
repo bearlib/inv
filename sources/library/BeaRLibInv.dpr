@@ -17,6 +17,7 @@ exports
   Ground_Items_Append,
   Ground_Items_Delete,
   Ground_Items_Delete_InTile,
+  Ground_Items_Delete_All_InTile,
 
   // Inventory
   Inventory_Clear,

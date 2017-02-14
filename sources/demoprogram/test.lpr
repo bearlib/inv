@@ -3,7 +3,7 @@ program test;
 {$mode objfpc}{$H+}
 
 uses
-  Classes, SysUtils, ConioEngine, Math, CRT, BeaRLibInventory;
+  Classes, SysUtils, Dialogs, ConioEngine, Math, CRT, BeaRLibInventory;
 
 var
   X, Y: Byte;
@@ -71,6 +71,7 @@ const
     I, C, X, Y: Integer;
     FItems: TItems;
   begin
+    if (Ground_Count = 0) then Exit;
     C := Ground_Count_InTile(PlayerX, PlayerY);
     if (C <= 0) then Exit;
     if (C > 26) then C := 26;
@@ -97,8 +98,8 @@ const
   var
     AItem: TItem;
   begin
-    AItem := Ground_Items_Delete_InTile(Pos - 97, PlayerX, PlayerY);
-    Inventory_Items_Append(AItem);
+    if Ground_Items_Delete_InTile(Pos - 97, PlayerX, PlayerY, AItem) then
+      Inventory_Items_Append(AItem);
   end;
 
 procedure RenderInventoryItems();
@@ -116,6 +117,7 @@ end;
 
 var
   Key: Char;
+  FItems: TItems;
 
 begin
   Randomize;
@@ -125,7 +127,7 @@ begin
     for X := 0 to MapWidth - 1 do
       Map[X, Y] := '.';
 
-  AddRandomItems(9999);
+  AddRandomItems(999);
 
   repeat
     if IsRefresh then
@@ -136,7 +138,7 @@ begin
       begin
         // Inventory screen
         ConioEngineWriteString(MapWidth + 8, 1,
-          '[I, Esc] Close inventory', 15);
+          '[SPACE, Esc] Close inventory', 15);
 
         RenderInventoryItems();
 
@@ -150,7 +152,7 @@ begin
 
         ConioEngineWriteChar(PlayerX + 1, PlayerY + 1, '@', 12);
         ConioEngineWriteString(MapWidth + 8, 1,
-          '[2,4,6,8] Move @, [I] Inventory, [Esc] Close', 15);
+          '[2,4,6,8] Move, [SPACE] Inventory, [Esc] Close', 15);
         ConioEngineWriteString(MapWidth + 2, 1, IntToStr(PlayerX)
           + ':' + IntToStr(PlayerY), 15);
         ConioEngineWriteString(MapWidth + 2, 2, 'Items on map: '
@@ -166,15 +168,24 @@ begin
     if KeyPressed then
     begin
       Key := ReadKey;
-      case Key of
-        '2': Inc(PlayerY);
-        '4': Dec(PlayerX);
-        '6': Inc(PlayerX);
-        '8': Dec(PlayerY);
-        'a'..'z': Pickup(ord(Key));
-        'I': IsInventory := not IsInventory;
-        chr(27): if IsInventory then IsInventory := False else break;
-      end;
+      if IsInventory then
+        case Key of
+          //'a'..'z': Pickup(ord(Key));
+          chr(27), ' ': IsInventory := False;
+        end
+      else
+        case Key of
+          '1': begin
+                 Ground_Items_Delete_All_InTile(PlayerX, PlayerY, FItems);
+               end;
+          '2': Inc(PlayerY);
+          '4': Dec(PlayerX);
+          '6': Inc(PlayerX);
+          '8': Dec(PlayerY);
+          'a'..'z': Pickup(ord(Key));
+          ' ': IsInventory := True;
+          chr(27): break;
+        end;
       IsRefresh := True;
     end;
 
