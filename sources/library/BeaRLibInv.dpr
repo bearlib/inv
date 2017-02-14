@@ -11,6 +11,7 @@ exports
   Ground_Clear,
   Ground_Count,
   Ground_Count_InTile,
+  Ground_Item_By_Index,
   Ground_Items,
   Ground_Items_InTile,
   Ground_Items_Append,
