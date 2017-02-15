@@ -4,7 +4,9 @@ interface
 
 type
   TItem = record
-    ID, X, Y: Integer;
+    MapID: Integer;
+    ItemID: Integer;
+    X, Y: Integer;
   end;
 
 type

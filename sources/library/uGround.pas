@@ -11,108 +11,109 @@ uses uItems;
 {TODO: Ограничение по весу и\или объему [Jesus05]}
 {TODO: Стекинг [Jesus05]}
 
-function Ground_Clear(): Boolean; stdcall;
-function Ground_Count(): Integer; stdcall;
-function Ground_Count_InTile(AX, AY: Word): Integer; stdcall;
-function Ground_Item_By_Index(Index: Integer): TItem; stdcall;
-function Ground_Items(): TItems; stdcall;
-function Ground_Items_InTile(AX, AY: Integer): TItems; stdcall;
-function Ground_Items_Append(AItem: TItem): Boolean; stdcall;
-function Ground_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall;
-function Ground_Items_Delete_InTile(Index, AX, AY: Integer; var AItem: TItem): Boolean; stdcall;
-function Ground_Items_Delete_All_InTile(AX, AY: Integer; var AItems: TItems): Boolean; stdcall;
+function Ground_Clear(MapID: Integer): Boolean; stdcall;
+function Ground_Count(MapID: Integer): Integer; stdcall;
+function Ground_Count_InTile(MapID: Integer; AX, AY: Word): Integer; stdcall;
+function Ground_Item_By_Index(MapID: Integer; Index: Integer): TItem; stdcall;
+function Ground_Items(MapID: Integer): TItems; stdcall;
+function Ground_Items_InTile(MapID: Integer; AX, AY: Integer): TItems; stdcall;
+function Ground_Items_Append(MapID: Integer; AItem: TItem): Boolean; stdcall;
+function Ground_Items_Delete(MapID: Integer; Index: Integer; var AItem: TItem): Boolean; stdcall;
+function Ground_Items_Delete_InTile(MapID: Integer; Index, AX, AY: Integer; var AItem: TItem): Boolean; stdcall;
+function Ground_Items_Delete_All_InTile(MapID: Integer; AX, AY: Integer; var AItems: TItems): Boolean; stdcall;
 
 implementation
 
 var
-  Items, FItems: TItems;
+  MapItems, TmpItems: TItems;
 
-function Ground_Clear(): Boolean;
+function Ground_Clear(MapID: Integer): Boolean;
 begin
-  Result := (Length(Items) > 0);
-  SetLength(Items, 0);
+  Result := (Length(MapItems) > 0);
+  SetLength(MapItems, 0);
 end;
 
-function Ground_Count(): Integer;
+function Ground_Count(MapID: Integer): Integer;
 begin
-  Result := Length(Items);
+  Result := Length(MapItems);
 end;
 
-function Ground_Count_InTile(AX, AY: Word): Integer;
+function Ground_Count_InTile(MapID: Integer; AX, AY: Word): Integer;
 var
   I: Integer;
 begin
   Result := 0;
-  if (Length(Items) = 0) then Exit;
-  for I := 0 to Length(Items) - 1 do
-    if (Items[I].X = AX) and (Items[I].Y = AY) then
+  if (Length(MapItems) = 0) then Exit;
+  for I := 0 to Length(MapItems) - 1 do
+    if (MapItems[I].X = AX) and (MapItems[I].Y = AY) then
       Inc(Result);
 end;
 
-function Ground_Item_By_Index(Index: Integer): TItem;
+function Ground_Item_By_Index(MapID: Integer; Index: Integer): TItem;
 begin
-  Result := Items[Index];
+  Result := MapItems[Index];
 end;
 
-function Ground_Items(): TItems;
+function Ground_Items(MapID: Integer): TItems;
 begin
-  Result := Items;
+  Result := MapItems;
 end;
 
-function Ground_Items_InTile(AX, AY: Integer): TItems;
+function Ground_Items_InTile(MapID: Integer; AX, AY: Integer): TItems;
 var
   I: Integer;
 begin
-  SetLength(FItems, 0);
-  Result := FItems;
-  if (Length(Items) <= 0) then Exit;
-  for I := 0 to Length(Items) - 1 do
-    if (Items[I].X = AX) and (Items[I].Y = AY) then
+  SetLength(TmpItems, 0);
+  Result := TmpItems;
+  if (Length(MapItems) <= 0) then Exit;
+  for I := 0 to Length(MapItems) - 1 do
+    if (MapItems[I].X = AX) and (MapItems[I].Y = AY) then
     begin
-      SetLength(FItems, Length(FItems) + 1);
-      FItems[Length(FItems) - 1] := Items[I];
+      SetLength(TmpItems, Length(TmpItems) + 1);
+      TmpItems[Length(TmpItems) - 1] := MapItems[I];
     end;
-  Result := FItems;
+  Result := TmpItems;
 end;
 
-function Ground_Items_Append(AItem: TItem): Boolean;
+function Ground_Items_Append(MapID: Integer; AItem: TItem): Boolean;
 begin
   Result := False;
-  SetLength(Items, Length(Items) + 1);
-  Items[Length(Items) - 1] := AItem;
+  AItem.MapID := MapID;
+  SetLength(MapItems, Length(MapItems) + 1);
+  MapItems[Length(MapItems) - 1] := AItem;
 end;
 
-function Ground_Items_Delete(Index: Integer; var AItem: TItem): Boolean;
+function Ground_Items_Delete(MapID: Integer; Index: Integer; var AItem: TItem): Boolean;
 var
   I: Integer;
 begin
   Result := False;
-  if (Length(Items) = 0) or (Index > Length(Items) - 1) then Exit;
-  AItem := Items[Index];
-  if (Length(Items) > 1) then
-    for I := Index to Length(Items) - 2 do
-      Items[I] := Items[I + 1];
-  SetLength(Items, Length(Items) - 1);
+  if (Length(MapItems) = 0) or (Index > Length(MapItems) - 1) then Exit;
+  AItem := MapItems[Index];
+  if (Length(MapItems) > 1) then
+    for I := Index to Length(MapItems) - 2 do
+      MapItems[I] := MapItems[I + 1];
+  SetLength(MapItems, Length(MapItems) - 1);
   Result := True;
 end;
 
-function Ground_Items_Delete_InTile(Index, AX, AY: Integer; var AItem: TItem): Boolean;
+function Ground_Items_Delete_InTile(MapID: Integer; Index, AX, AY: Integer; var AItem: TItem): Boolean;
 var
   I, J, P: Integer;
 begin
   Result := False;
-  if (Length(Items) = 0) or (Index > Length(Items) - 1) then Exit;
+  if (Length(MapItems) = 0) or (Index > Length(MapItems) - 1) then Exit;
   P := 0;
-  for I := 0 to Length(Items) - 1 do
-    if (Items[I].X = AX) and (Items[I].Y = AY) then
+  for I := 0 to Length(MapItems) - 1 do
+    if (MapItems[I].X = AX) and (MapItems[I].Y = AY) then
     begin
       if (P = Index) then
       begin
-        AItem := Items[I];
-        if (Length(Items) > 1) then
-          for J := I to Length(Items) - 2 do
-            Items[J] := Items[J + 1];
-        SetLength(Items, Length(Items) - 1);
+        AItem := MapItems[I];
+        if (Length(MapItems) > 1) then
+          for J := I to Length(MapItems) - 2 do
+            MapItems[J] := MapItems[J + 1];
+        SetLength(MapItems, Length(MapItems) - 1);
         Result := True;
         Exit;
       end;
@@ -120,26 +121,26 @@ begin
     end;
 end;
 
-function Ground_Items_Delete_All_InTile(AX, AY: Integer; var AItems: TItems): Boolean;
+function Ground_Items_Delete_All_InTile(MapID: Integer; AX, AY: Integer; var AItems: TItems): Boolean;
 var
   I, J: Integer;
   AItem: TItem;
 begin
   Result := False;
-  if (Length(Items) = 0) then Exit;
-  SetLength(FItems, 0);
-  for I := 0 to Length(Items) - 1 do
-    if (Items[I].X = AX) and (Items[I].Y = AY) then
+  if (Length(MapItems) = 0) then Exit;
+  SetLength(TmpItems, 0);
+  for I := 0 to Length(MapItems) - 1 do
+    if (MapItems[I].X = AX) and (MapItems[I].Y = AY) then
     begin
-      AItem := Items[I];
-      if (Length(Items) > 1) then
-        for J := I to Length(Items) - 2 do
-          Items[J] := Items[J + 1];
-      SetLength(Items, Length(Items) - 1);
+      AItem := MapItems[I];
+      if (Length(MapItems) > 1) then
+        for J := I to Length(MapItems) - 2 do
+          MapItems[J] := MapItems[J + 1];
+      SetLength(MapItems, Length(MapItems) - 1);
       Result := True;
-      SetLength(FItems, Length(FItems) + 1);
-      FItems[Length(FItems) - 1] := AItem;
-      AItems := FItems;
+      SetLength(TmpItems, Length(TmpItems) + 1);
+      TmpItems[Length(TmpItems) - 1] := AItem;
+      AItems := TmpItems;
     end;
 end;
 

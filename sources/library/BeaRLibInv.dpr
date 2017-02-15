@@ -27,6 +27,6 @@ exports
   Inventory_Items_Delete;
 
 begin
-  Ground_Clear();
-  Inventory_Clear();
+  //Ground_Clear();
+  //Inventory_Clear();
 end.
