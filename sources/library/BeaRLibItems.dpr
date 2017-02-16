@@ -1,9 +1,8 @@
-library BeaRLibInv;
+library BeaRLibItems;
 
 uses
-  SysUtils,
-  uGround in 'uGround.pas',
   uItems in 'uItems.pas',
+  uGround in 'uGround.pas',
   uInventory in 'uInventory.pas';
 
 exports

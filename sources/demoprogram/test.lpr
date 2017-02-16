@@ -3,7 +3,7 @@ program test;
 {$mode objfpc}{$H+}
 
 uses
-  Classes, SysUtils, Dialogs, ConioEngine, Math, CRT, BeaRLibInventory;
+  Classes, SysUtils, Dialogs, ConioEngine, Math, CRT, BeaRLibItems;
 
 var
   X, Y: Integer;
