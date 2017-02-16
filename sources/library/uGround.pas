@@ -11,9 +11,12 @@ uses uItems;
 {TODO: Ограничение по весу и\или объему [Jesus05]}
 {TODO: Стекинг [Jesus05]}
 
+//function Ground_Clear_All(): Boolean; stdcall;
+//function Ground_Count_All(): Integer; stdcall;
+
 function Ground_Clear(MapID: Integer): Boolean; stdcall;
 function Ground_Count(MapID: Integer): Integer; stdcall;
-function Ground_Count_InTile(MapID: Integer; AX, AY: Word): Integer; stdcall;
+function Ground_Count_InTile(MapID: Integer; AX, AY: Integer): Integer; stdcall;
 function Ground_Item_By_Index(MapID: Integer; Index: Integer): TItem; stdcall;
 function Ground_Items(MapID: Integer): TItems; stdcall;
 function Ground_Items_InTile(MapID: Integer; AX, AY: Integer): TItems; stdcall;
@@ -27,6 +30,22 @@ implementation
 var
   MapItems, TmpItems: TItems;
 
+function IsMapItem(N, MapID, AX, AY: Integer): Boolean;
+begin
+  Result := (MapItems[N].MapID = MapID) and (MapItems[N].X = AX) and (MapItems[N].Y = AY);
+end;
+
+{function Ground_Clear(): Boolean;
+begin
+  Result := (Length(MapItems) > 0);
+  SetLength(MapItems, 0);
+end;}
+
+{function Ground_Count_All(MapID: Integer): Integer;
+begin
+  Result := Length(MapItems);
+end;}
+
 function Ground_Clear(MapID: Integer): Boolean;
 begin
   Result := (Length(MapItems) > 0);
@@ -34,18 +53,23 @@ begin
 end;
 
 function Ground_Count(MapID: Integer): Integer;
+var
+  I: Integer;
 begin
-  Result := Length(MapItems);
+  Result := 0;
+  for I := 0 to Length(MapItems) - 1 do
+    if (MapItems[I].MapID = MapID) then
+      Inc(Result);
 end;
 
-function Ground_Count_InTile(MapID: Integer; AX, AY: Word): Integer;
+function Ground_Count_InTile(MapID: Integer; AX, AY: Integer): Integer;
 var
   I: Integer;
 begin
   Result := 0;
   if (Length(MapItems) = 0) then Exit;
   for I := 0 to Length(MapItems) - 1 do
-    if (MapItems[I].X = AX) and (MapItems[I].Y = AY) then
+    if IsMapItem(I, MapID, AX, AY) then
       Inc(Result);
 end;
 
@@ -67,7 +91,7 @@ begin
   Result := TmpItems;
   if (Length(MapItems) <= 0) then Exit;
   for I := 0 to Length(MapItems) - 1 do
-    if (MapItems[I].X = AX) and (MapItems[I].Y = AY) then
+    if IsMapItem(I, MapID, AX, AY) then
     begin
       SetLength(TmpItems, Length(TmpItems) + 1);
       TmpItems[Length(TmpItems) - 1] := MapItems[I];
@@ -105,7 +129,7 @@ begin
   if (Length(MapItems) = 0) or (Index > Length(MapItems) - 1) then Exit;
   P := 0;
   for I := 0 to Length(MapItems) - 1 do
-    if (MapItems[I].X = AX) and (MapItems[I].Y = AY) then
+    if IsMapItem(I, MapID, AX, AY) then
     begin
       if (P = Index) then
       begin
@@ -130,7 +154,7 @@ begin
   if (Length(MapItems) = 0) then Exit;
   SetLength(TmpItems, 0);
   for I := 0 to Length(MapItems) - 1 do
-    if (MapItems[I].X = AX) and (MapItems[I].Y = AY) then
+    if IsMapItem(I, MapID, AX, AY) then
     begin
       AItem := MapItems[I];
       if (Length(MapItems) > 1) then

@@ -7,6 +7,8 @@ uses
   uInventory in 'uInventory.pas';
 
 exports
+  //Ground_Clear_All, 
+  //Ground_Count_All,
   // Ground
   Ground_Clear,
   Ground_Count,
