@@ -3,7 +3,8 @@ program test;
 {$mode objfpc}{$H+}
 
 uses
-  Classes, SysUtils, Dialogs, ConioEngine, Math, CRT, BeaRLibItems;
+  Classes, SysUtils, Dialogs, ConioEngine, Math, CRT,
+  BeaRLibItems in '..\include\BeaRLibItems';
 
 var
   X, Y: Integer;
@@ -51,9 +52,10 @@ const
     for I := 1 to C do
     begin
       FItem.ItemID := Math.RandomRange(0, BaseItemsAmount) + 1;
+      FItem.MapID := MapID;
       FItem.X := Math.RandomRange(1, MapWidth - 1);
       FItem.Y := Math.RandomRange(1, MapHeight - 1);
-      Ground_Items_Append(MapID, FItem);
+      Ground_Items_Append(FItem);
     end;
   end;
 
@@ -62,7 +64,7 @@ const
     I: Integer;
     FItems: TItems;
   begin
-    FItems := Ground_Items(MapID);
+    FItems := Ground_Items();
     for I := Ground_Count(MapID) - 1 downto 0 do
       ConioEngineWriteChar(FItems[I].X + 1, FItems[I].Y + 1,
         ItemBase[FItems[I].ItemID - 1].Char, ItemBase[FItems[I].ItemID - 1].Color);

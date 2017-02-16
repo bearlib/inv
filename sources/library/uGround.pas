@@ -16,11 +16,11 @@ function Ground_Clear_All(): Boolean; stdcall;
 function Ground_Count(MapID: Integer): Integer; stdcall;
 function Ground_Count_All(): Integer; stdcall;
 function Ground_Count_InTile(MapID: Integer; AX, AY: Integer): Integer; stdcall;
-function Ground_Item_By_Index(MapID: Integer; Index: Integer): TItem; stdcall;
-function Ground_Items(MapID: Integer): TItems; stdcall;
+function Ground_Item_By_Index(Index: Integer): TItem; stdcall;
+function Ground_Items(): TItems; stdcall;
 function Ground_Items_InTile(MapID: Integer; AX, AY: Integer): TItems; stdcall;
-function Ground_Items_Append(MapID: Integer; AItem: TItem): Boolean; stdcall;
-function Ground_Items_Delete(MapID: Integer; Index: Integer; var AItem: TItem): Boolean; stdcall;
+function Ground_Items_Append(AItem: TItem): Boolean; stdcall;
+function Ground_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall;
 function Ground_Items_Delete_InTile(MapID: Integer; Index, AX, AY: Integer; var AItem: TItem): Boolean; stdcall;
 function Ground_Items_Delete_All_InTile(MapID: Integer; AX, AY: Integer; var AItems: TItems): Boolean; stdcall;
 
@@ -66,7 +66,7 @@ begin
       Inc(Result);
 end;
 
-function Ground_Count_All(MapID: Integer): Integer;
+function Ground_Count_All(): Integer;
 begin
   Result := Length(MapItems);
 end;
@@ -82,12 +82,12 @@ begin
       Inc(Result);
 end;
 
-function Ground_Item_By_Index(MapID: Integer; Index: Integer): TItem;
+function Ground_Item_By_Index(Index: Integer): TItem;
 begin
   Result := MapItems[Index];
 end;
 
-function Ground_Items(MapID: Integer): TItems;
+function Ground_Items(): TItems;
 begin
   Result := MapItems;
 end;
@@ -108,15 +108,14 @@ begin
   Result := TmpItems;
 end;
 
-function Ground_Items_Append(MapID: Integer; AItem: TItem): Boolean;
+function Ground_Items_Append(AItem: TItem): Boolean;
 begin
   Result := False;
-  AItem.MapID := MapID;
   SetLength(MapItems, Length(MapItems) + 1);
   MapItems[Length(MapItems) - 1] := AItem;
 end;
 
-function Ground_Items_Delete(MapID: Integer; Index: Integer; var AItem: TItem): Boolean;
+function Ground_Items_Delete(Index: Integer; var AItem: TItem): Boolean;
 var
   I: Integer;
 begin

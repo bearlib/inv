@@ -5,12 +5,12 @@ uses
   uGround in 'uGround.pas',
   uInventory in 'uInventory.pas';
 
-exports
-  // Ground
-  //Ground_Clear_All, 
-  //Ground_Count_All,
+exports       
+  // Map
   Ground_Clear,
+  Ground_Clear_All,
   Ground_Count,
+  Ground_Count_All,
   Ground_Count_InTile,
   Ground_Item_By_Index,
   Ground_Items,
