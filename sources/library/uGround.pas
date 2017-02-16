@@ -11,11 +11,10 @@ uses uItems;
 {TODO: Ограничение по весу и\или объему [Jesus05]}
 {TODO: Стекинг [Jesus05]}
 
-//function Ground_Clear_All(): Boolean; stdcall;
-//function Ground_Count_All(): Integer; stdcall;
-
 function Ground_Clear(MapID: Integer): Boolean; stdcall;
+function Ground_Clear_All(): Boolean; stdcall;
 function Ground_Count(MapID: Integer): Integer; stdcall;
+function Ground_Count_All(): Integer; stdcall;
 function Ground_Count_InTile(MapID: Integer; AX, AY: Integer): Integer; stdcall;
 function Ground_Item_By_Index(MapID: Integer; Index: Integer): TItem; stdcall;
 function Ground_Items(MapID: Integer): TItems; stdcall;
@@ -35,18 +34,23 @@ begin
   Result := (MapItems[N].MapID = MapID) and (MapItems[N].X = AX) and (MapItems[N].Y = AY);
 end;
 
-{function Ground_Clear(): Boolean;
-begin
-  Result := (Length(MapItems) > 0);
-  SetLength(MapItems, 0);
-end;}
-
-{function Ground_Count_All(MapID: Integer): Integer;
-begin
-  Result := Length(MapItems);
-end;}
-
 function Ground_Clear(MapID: Integer): Boolean;
+var
+  I, J: Integer;
+begin
+  Result := False;
+  for I := 0 to Length(MapItems) - 1 do
+    if (MapItems[I].MapID = MapID) then
+    begin
+      if (Length(MapItems) > 1) then
+        for J := I to Length(MapItems) - 2 do
+          MapItems[J] := MapItems[J + 1];
+      SetLength(MapItems, Length(MapItems) - 1);
+      Result := True;
+    end;
+end;
+
+function Ground_Clear_All(): Boolean;
 begin
   Result := (Length(MapItems) > 0);
   SetLength(MapItems, 0);
@@ -60,6 +64,11 @@ begin
   for I := 0 to Length(MapItems) - 1 do
     if (MapItems[I].MapID = MapID) then
       Inc(Result);
+end;
+
+function Ground_Count_All(MapID: Integer): Integer;
+begin
+  Result := Length(MapItems);
 end;
 
 function Ground_Count_InTile(MapID: Integer; AX, AY: Integer): Integer;
