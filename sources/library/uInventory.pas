@@ -2,13 +2,13 @@ unit uInventory;
 
 interface
 
-uses uItems;
+uses uItems, Dialogs, SysUtils;
 
 function Items_Inventory_Clear(): Boolean; stdcall;
 function Items_Inventory_Count(): Integer; stdcall;
 function Items_Inventory_Items(): TItems; stdcall;
 function Items_Inventory_Items_Append(AItem: TItem): Boolean; stdcall;
-function Items_Inventory_Items_Delete(Index: Integer): Boolean; stdcall;
+function Items_Inventory_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall;
 
 implementation
 
@@ -39,16 +39,20 @@ begin
   Result := True;
 end;
 
-function Items_Inventory_Items_Delete(Index: Integer): Boolean;
+function Items_Inventory_Items_Delete(Index: Integer; var AItem: TItem): Boolean;
 var
   I: Integer;
 begin
+  ShowMessage(IntToStr(Index));
   Result := False;
-  if (Length(InvItems) <= 0) or (Index > Length(InvItems) - 1) then Exit;
+  if (Length(InvItems) = 0) or (Index > Length(InvItems) - 1) then Exit;
+  Result := True;
+
+
+  AItem := InvItems[Index];
   for I := Index to Length(InvItems) - 2 do
     InvItems[I] := InvItems[I + 1];
   SetLength(InvItems, Length(InvItems) - 1);
-  Result := True;
 end;
 
 end.

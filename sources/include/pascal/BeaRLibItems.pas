@@ -33,7 +33,7 @@ function Items_Inventory_Clear(): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_Count(): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_Items(): TItems; stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_Items_Append(AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
-function Items_Inventory_Items_Delete(Index: Integer): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Inventory_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 
 implementation
 

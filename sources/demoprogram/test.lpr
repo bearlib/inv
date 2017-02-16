@@ -98,13 +98,26 @@ const
     end;
   end;
 
-  procedure Pickup(MapID, Index: Integer);
-  var
-    AItem: TItem;
+procedure Pickup(MapID, Index: Integer);
+var
+  AItem: TItem;
+begin
+  if Items_Ground_Items_Delete_InTile(MapID, Index - 97, PlayerX, PlayerY, AItem) then
+    Items_Inventory_Items_Append(AItem);
+end;
+
+procedure Drop(MapID, Index: Integer);
+var
+  AItem: TItem;
+begin
+  if Items_Inventory_Items_Delete(Index - 97, AItem) then
   begin
-    if Items_Ground_Items_Delete_InTile(MapID, Index - 97, PlayerX, PlayerY, AItem) then
-      Items_Inventory_Items_Append(AItem);
+    AItem.X := PlayerX;
+    AItem.Y := PlayerY;
+    AItem.MapID := MapID;
+    Items_Ground_Items_Append(AItem);
   end;
+end;
 
 procedure RenderInventoryItems();
 var
@@ -178,7 +191,7 @@ begin
       Key := ReadKey;
       if IsInventory then
         case Key of
-          //'a'..'z': Pickup(ord(Key));
+          'a'..'z': Drop(CurrentMap, ord(Key));
           chr(27), ' ': IsInventory := False;
         end
       else
