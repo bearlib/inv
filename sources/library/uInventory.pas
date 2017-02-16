@@ -4,34 +4,34 @@ interface
 
 uses uItems;
 
-function Inventory_Clear(): Boolean; stdcall;
-function Inventory_Count(): Integer; stdcall;
-function Inventory_Items(): TItems; stdcall;
-function Inventory_Items_Append(AItem: TItem): Boolean; stdcall;
-function Inventory_Items_Delete(Index: Integer): Boolean; stdcall;
+function Items_Inventory_Clear(): Boolean; stdcall;
+function Items_Inventory_Count(): Integer; stdcall;
+function Items_Inventory_Items(): TItems; stdcall;
+function Items_Inventory_Items_Append(AItem: TItem): Boolean; stdcall;
+function Items_Inventory_Items_Delete(Index: Integer): Boolean; stdcall;
 
 implementation
 
 var
   InvItems: TItems;
 
-function Inventory_Clear(): Boolean;
+function Items_Inventory_Clear(): Boolean;
 begin
   Result := (Length(InvItems) > 0);
   SetLength(InvItems, 0);
 end;
 
-function Inventory_Count(): Integer;
+function Items_Inventory_Count(): Integer;
 begin
   Result := Length(InvItems);
 end;
 
-function Inventory_Items(): TItems;
+function Items_Inventory_Items(): TItems;
 begin
   Result := InvItems;
 end;
 
-function Inventory_Items_Append(AItem: TItem): Boolean;
+function Items_Inventory_Items_Append(AItem: TItem): Boolean;
 begin
   Result := False;
   SetLength(InvItems, Length(InvItems) + 1);
@@ -39,7 +39,7 @@ begin
   Result := True;
 end;
 
-function Inventory_Items_Delete(Index: Integer): Boolean;
+function Items_Inventory_Items_Delete(Index: Integer): Boolean;
 var
   I: Integer;
 begin
