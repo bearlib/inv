@@ -20,6 +20,8 @@ type
   TItems = array of TItem;
 
 // Library
+procedure Items_Open();
+procedure Items_Close();
 function Items_GetVersion(): PChar; stdcall;
 
 // Common
@@ -30,6 +32,16 @@ function DelItem(var AItems: TItems; Index: Integer): TItem;
 function HasEmpty(AItems: TItems): Boolean;
 
 implementation
+
+procedure Items_Open();
+begin
+
+end;
+
+procedure Items_Close();
+begin
+
+end;
 
 function Items_GetVersion(): PChar; stdcall;
 begin

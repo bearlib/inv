@@ -7,6 +7,8 @@ uses
 
 exports
   // Library
+  Items_Open,
+  Items_Close,
   Items_GetVersion,
   // Map
   Items_Ground_Clear,
