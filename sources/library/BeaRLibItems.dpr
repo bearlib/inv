@@ -28,6 +28,8 @@ exports
   // Inventory
   Items_Inventory_Clear,
   Items_Inventory_GetCount,
+  Items_Inventory_GetItem,
+  Items_Inventory_SetItem,
   Items_Inventory_GetItems,
   Items_Inventory_SetItems,
   Items_Inventory_Items_Append,

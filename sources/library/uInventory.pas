@@ -7,6 +7,9 @@ uses uCommon;
 procedure Items_Inventory_Clear(); stdcall;
 function Items_Inventory_GetCount(): Integer; stdcall;
 
+function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall;
+function Items_Inventory_GetItem(Index: Integer): TItem; stdcall;
+
 procedure Items_Inventory_GetItems(var AItems: TItems); stdcall;
 procedure Items_Inventory_SetItems(var AItems: TItems); stdcall;
 
@@ -28,6 +31,21 @@ begin
   Result := Length(InvItems);
 end;
 
+function Items_Inventory_GetItem(Index: Integer): TItem;
+begin
+  Result := InvItems[Index];
+end;
+
+function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean;
+begin
+  Result := False;
+  if IndexInRange(InvItems, Index) then
+  begin
+    InvItems[Index] := AItem;
+    Result := True;
+  end;
+end;
+
 procedure Items_Inventory_GetItems(var AItems: TItems);
 begin
   AItems := InvItems;
@@ -40,21 +58,17 @@ end;
 
 procedure Items_Inventory_Items_Append(AItem: TItem);
 begin
-  SetLength(InvItems, Length(InvItems) + 1);
-  InvItems[Length(InvItems) - 1] := AItem;
+  AddItem(InvItems, AItem);
 end;
 
 function Items_Inventory_Items_Delete(Index: Integer; var AItem: TItem): Boolean;
-var
-  I: Integer;
 begin
   Result := False;
-  if not IndexInRange(InvItems, Index) then Exit;
-  Result := True;
-  AItem := InvItems[Index];
-  for I := Index to Length(InvItems) - 2 do
-    InvItems[I] := InvItems[I + 1];
-  SetLength(InvItems, Length(InvItems) - 1);
+  if IndexInRange(InvItems, Index) then
+  begin
+    AItem := DelItem(InvItems, Index);
+    Result := True;
+  end;
 end;
 
 end.

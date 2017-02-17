@@ -64,7 +64,7 @@ const
     I: Integer;
     FItems: TItems;
   begin
-    FItems := Items_Ground_GetMapItems(MapID);
+    Items_Ground_GetMapItems(MapID, FItems);
     for I := Items_Ground_GetMapCount(MapID) - 1 downto 0 do
       ConioEngineWriteChar(FItems[I].X + 1, FItems[I].Y + 1,
         ItemBase[FItems[I].ItemID - 1].Char, ItemBase[FItems[I].ItemID - 1].Color);
@@ -79,7 +79,7 @@ const
     C := Items_Ground_GetMapCountXY(MapID, PlayerX, PlayerY);
     if (C <= 0) then Exit;
     if (C > 26) then C := 26;
-    FItems := Items_Ground_GetMapItemsXY(MapID, PlayerX, PlayerY);
+    Items_Ground_GetMapItemsXY(MapID, PlayerX, PlayerY, FItems);
 
     ConioEngineWriteString(MapWidth + 2, 4, 'Items on tile (' + IntToStr(Items_Ground_GetMapCountXY(MapID, PlayerX, PlayerY)) + '):', 15);
 
