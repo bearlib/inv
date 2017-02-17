@@ -13,6 +13,8 @@ type
 type
   TItems = array of TItem;
 
+// Library
+function Items_GetVersion(): PChar; stdcall; external 'BeaRLibItems.dll';
 // Map
 function Items_Ground_Clear(MapID: Integer): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Ground_Clear_All(): Boolean; stdcall; external 'BeaRLibItems.dll';
@@ -28,11 +30,12 @@ function Items_Ground_Items_Delete(Index: Integer; var AItem: TItem): Boolean; s
 function Items_Ground_Items_Delete_InTile(MapID: Integer; Index, AX, AY: Integer; var AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Ground_Items_Delete_All_InTile(MapID: Integer; AX, AY: Integer; var AItems: TItems): Boolean; stdcall; external 'BeaRLibItems.dll';
 
-// Inventory
-function Items_Inventory_Clear(): Boolean; stdcall; external 'BeaRLibItems.dll';
+// Inventory    
+procedure Items_Inventory_Clear(); stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_Count(): Integer; stdcall; external 'BeaRLibItems.dll';
-function Items_Inventory_Items(): TItems; stdcall; external 'BeaRLibItems.dll';
-function Items_Inventory_Items_Append(AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
+procedure Items_Inventory_GetItems(var AItems: TItems); stdcall; external 'BeaRLibItems.dll';
+procedure Items_Inventory_SetItems(var AItems: TItems); stdcall; external 'BeaRLibItems.dll';
+procedure Items_Inventory_Items_Append(AItem: TItem); stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 
 implementation

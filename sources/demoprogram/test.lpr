@@ -124,7 +124,7 @@ var
   I: Integer;
   FItems: TItems;
 begin
-  FItems := Items_Inventory_Items();
+  Items_Inventory_GetItems(FItems);
   for I := 0 to Items_Inventory_Count() - 1 do
   begin
     ConioEngineWriteString(4 + 2, I + 2, '[' + Chr(I + 97) + ']', 15);
@@ -181,6 +181,8 @@ begin
 
         RenderTileInfo(CurrentMap);
       end;
+
+      ConioEngineWriteString(70, 24, 'v.' + Items_GetVersion(), 4);
 
       UConioEngineRefresh;
       IsRefresh := False;

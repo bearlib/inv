@@ -2,7 +2,7 @@ unit uGround;
 
 interface
 
-uses uItems;
+uses uCommon;
 
 {TODO: Переименовать Ground в Map?}
 {DONE: Передавать ID карты в каждую функцию? или устанавливать текущим уровень карты? [Kipar]}
@@ -29,11 +29,6 @@ implementation
 
 var
   MapItems, TmpItems: TItems;
-
-function IsMapItem(N, MapID, AX, AY: Integer): Boolean;
-begin
-  Result := (MapItems[N].MapID = MapID) and (MapItems[N].X = AX) and (MapItems[N].Y = AY);
-end;
 
 function Items_Ground_Clear(MapID: Integer): Boolean;
 var
@@ -79,7 +74,7 @@ begin
   Result := 0;
   if (Length(MapItems) = 0) then Exit;
   for I := 0 to Length(MapItems) - 1 do
-    if IsMapItem(I, MapID, AX, AY) then
+    if HasItem(MapItems, I, MapID, AX, AY) then
       Inc(Result);
 end;
 
@@ -117,7 +112,7 @@ begin
   Result := TmpItems;
   if (Length(MapItems) <= 0) then Exit;
   for I := 0 to Length(MapItems) - 1 do
-    if IsMapItem(I, MapID, AX, AY) then
+    if HasItem(MapItems, I, MapID, AX, AY) then
     begin
       SetLength(TmpItems, Length(TmpItems) + 1);
       TmpItems[Length(TmpItems) - 1] := MapItems[I];
@@ -154,7 +149,7 @@ begin
   if (Length(MapItems) = 0) or (Index > Length(MapItems) - 1) then Exit;
   P := 0;
   for I := 0 to Length(MapItems) - 1 do
-    if IsMapItem(I, MapID, AX, AY) then
+    if HasItem(MapItems, I, MapID, AX, AY) then
     begin
       if (P = Index) then
       begin
@@ -179,7 +174,7 @@ begin
   if (Length(MapItems) = 0) then Exit;
   SetLength(TmpItems, 0);
   for I := 0 to Length(MapItems) - 1 do
-    if IsMapItem(I, MapID, AX, AY) then
+    if HasItem(MapItems, I, MapID, AX, AY) then
     begin
       AItem := MapItems[I];
       if (Length(MapItems) > 1) then

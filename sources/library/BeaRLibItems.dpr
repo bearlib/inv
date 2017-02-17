@@ -1,11 +1,13 @@
 library BeaRLibItems;
 
-uses
-  uItems in 'uItems.pas',
+uses      
+  uCommon in 'uCommon.pas',
   uGround in 'uGround.pas',
   uInventory in 'uInventory.pas';
 
-exports       
+exports
+  // Library
+  Items_GetVersion,
   // Map
   Items_Ground_Clear,
   Items_Ground_Clear_All,
@@ -24,11 +26,11 @@ exports
   // Inventory
   Items_Inventory_Clear,
   Items_Inventory_Count,
-  Items_Inventory_Items,
+  Items_Inventory_GetItems,
+  Items_Inventory_SetItems,
   Items_Inventory_Items_Append,
   Items_Inventory_Items_Delete;
 
 begin
-  //Ground_Clear();
-  //Inventory_Clear();
+
 end.

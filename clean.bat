@@ -6,6 +6,7 @@ del /s *.bak
 del /s *.identcache
 del /s *.otares
 del /s *.local
+del /s *.dbg
 del /s *.cfg
 del /s *.ddp
 del /s *.o
