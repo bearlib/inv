@@ -5,7 +5,7 @@ interface
 uses uCommon;
 
 procedure Items_Inventory_Clear(); stdcall;
-function Items_Inventory_Count(): Integer; stdcall;
+function Items_Inventory_GetCount(): Integer; stdcall;
 
 procedure Items_Inventory_GetItems(var AItems: TItems); stdcall;
 procedure Items_Inventory_SetItems(var AItems: TItems); stdcall;
@@ -23,7 +23,7 @@ begin
   SetLength(InvItems, 0);
 end;
 
-function Items_Inventory_Count(): Integer;
+function Items_Inventory_GetCount(): Integer;
 begin
   Result := Length(InvItems);
 end;
@@ -49,7 +49,7 @@ var
   I: Integer;
 begin
   Result := False;
-  if (Length(InvItems) = 0) or (Index > Length(InvItems) - 1) then Exit;
+  if not IndexInRange(InvItems, Index) then Exit;
   Result := True;
   AItem := InvItems[Index];
   for I := Index to Length(InvItems) - 2 do

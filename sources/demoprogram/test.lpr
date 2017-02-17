@@ -64,8 +64,8 @@ const
     I: Integer;
     FItems: TItems;
   begin
-    FItems := Items_Ground_Items(MapID);
-    for I := Items_Ground_Count(MapID) - 1 downto 0 do
+    FItems := Items_Ground_GetMapItems(MapID);
+    for I := Items_Ground_GetMapCount(MapID) - 1 downto 0 do
       ConioEngineWriteChar(FItems[I].X + 1, FItems[I].Y + 1,
         ItemBase[FItems[I].ItemID - 1].Char, ItemBase[FItems[I].ItemID - 1].Color);
   end;
@@ -75,13 +75,13 @@ const
     I, C, X, Y: Integer;
     FItems: TItems;
   begin
-    if (Items_Ground_Count(MapID) = 0) then Exit;
-    C := Items_Ground_Count_InTile(MapID, PlayerX, PlayerY);
+    if (Items_Ground_GetMapCount(MapID) = 0) then Exit;
+    C := Items_Ground_GetMapCountXY(MapID, PlayerX, PlayerY);
     if (C <= 0) then Exit;
     if (C > 26) then C := 26;
-    FItems := Items_Ground_Items_InTile(MapID, PlayerX, PlayerY);
+    FItems := Items_Ground_GetMapItemsXY(MapID, PlayerX, PlayerY);
 
-    ConioEngineWriteString(MapWidth + 2, 4, 'Items on tile (' + IntToStr(Items_Ground_Count_InTile(MapID, PlayerX, PlayerY)) + '):', 15);
+    ConioEngineWriteString(MapWidth + 2, 4, 'Items on tile (' + IntToStr(Items_Ground_GetMapCountXY(MapID, PlayerX, PlayerY)) + '):', 15);
 
     X := 0;
     Y := 0;
@@ -102,7 +102,7 @@ procedure Pickup(MapID, Index: Integer);
 var
   AItem: TItem;
 begin
-  if Items_Ground_Items_Delete_InTile(MapID, Index - 97, PlayerX, PlayerY, AItem) then
+  if Items_Ground_Items_DeleteXY(MapID, Index - 97, PlayerX, PlayerY, AItem) then
     Items_Inventory_Items_Append(AItem);
 end;
 
@@ -125,7 +125,7 @@ var
   FItems: TItems;
 begin
   Items_Inventory_GetItems(FItems);
-  for I := 0 to Items_Inventory_Count() - 1 do
+  for I := 0 to Items_Inventory_GetCount() - 1 do
   begin
     ConioEngineWriteString(4 + 2, I + 2, '[' + Chr(I + 97) + ']', 15);
     ConioEngineWriteString(4 + 6, I + 2, ItemBase[FItems[I].ItemID - 1].Name, ItemBase[FItems[I].ItemID - 1].Color);
@@ -176,7 +176,7 @@ begin
         ConioEngineWriteString(MapWidth + 2, 1, IntToStr(PlayerX)
           + ':' + IntToStr(PlayerY), 15);
         ConioEngineWriteString(MapWidth + 2, 2, 'Items on cur. map: '
-          + IntToStr(Items_Ground_Count(CurrentMap)) + ' [+,-] Select cur. map: '
+          + IntToStr(Items_Ground_GetMapCount(CurrentMap)) + ' [+,-] Select cur. map: '
           + IntToStr(CurrentMap), 15);
 
         RenderTileInfo(CurrentMap);
@@ -199,7 +199,7 @@ begin
       else
         case Key of
           '1': begin
-                 Items_Ground_Items_Delete_All_InTile(CurrentMap, PlayerX, PlayerY, FItems);
+                 Items_Ground_MapClearXY(CurrentMap, PlayerX, PlayerY, FItems);
                end;
           '+': if (CurrentMap < MapDeep - 1) then CurrentMap := CurrentMap + 1;
           '-': if (CurrentMap > 0) then CurrentMap := CurrentMap - 1;
