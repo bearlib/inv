@@ -11,9 +11,11 @@ type
   end;
 
 type
-  TItems = array of TItem;
+  TItems = array of TItem;   
 
 // Library
+procedure Items_Open(); stdcall; external 'BeaRLibItems.dll';
+procedure Items_Close(); stdcall; external 'BeaRLibItems.dll';
 function Items_GetVersion(): PChar; stdcall; external 'BeaRLibItems.dll';
 // Map
 procedure Items_Ground_Clear(); stdcall; external 'BeaRLibItems.dll';

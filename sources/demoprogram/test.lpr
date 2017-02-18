@@ -139,6 +139,7 @@ var
 
 begin
   Randomize;
+  Items_Open;
   UConioEngineInit;
 
   for Y := 0 to MapHeight - 1 do
@@ -217,6 +218,7 @@ begin
     Sleep(10);
 
   until False;
+  Items_Close;
 end.
 
 

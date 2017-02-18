@@ -33,14 +33,18 @@ function HasEmpty(AItems: TItems): Boolean;
 
 implementation
 
+uses uGround, uInventory;
+
 procedure Items_Open();
 begin
-
+  Items_Ground_Clear();
+  Items_Inventory_Clear();
 end;
 
 procedure Items_Close();
 begin
-
+  Items_Ground_Clear();
+  Items_Inventory_Clear();
 end;
 
 function Items_GetVersion(): PChar; stdcall;
