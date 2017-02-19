@@ -14,6 +14,11 @@ type
     ItemID: Integer;
     X, Y: Integer;
     MapID: Integer;
+//    Stack: Integer;
+//    Amount: Integer;
+//    Durability: Integer;
+//    Weight: Integer;
+//    Size: Integer;
   end;
 
 type
@@ -30,6 +35,7 @@ function IndexInRange(AItems: TItems; Index: Integer): Boolean;
 procedure AddItem(var AItems: TItems; AItem: TItem);
 function DelItem(var AItems: TItems; Index: Integer): TItem;
 function HasEmpty(AItems: TItems): Boolean;
+procedure Empty(var AItems: TItems);
 
 implementation
 
@@ -82,6 +88,11 @@ end;
 function HasEmpty(AItems: TItems): Boolean;
 begin
   Result := (Length(AItems) = 0);
+end;
+
+procedure Empty(var AItems: TItems);
+begin
+  SetLength(AItems, 0);
 end;
 
 end.

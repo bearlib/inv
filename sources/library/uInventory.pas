@@ -23,7 +23,7 @@ var
 
 procedure Items_Inventory_Clear();
 begin
-  SetLength(InvItems, 0);
+  Empty(InvItems);
 end;
 
 function Items_Inventory_GetCount(): Integer;

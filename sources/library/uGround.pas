@@ -31,7 +31,7 @@ var
 
 procedure Items_Ground_Clear();
 begin
-  SetLength(MapItems, 0);
+  Empty(MapItems);
 end;
 
 procedure Items_Ground_MapClear(MapID: Integer);
@@ -50,7 +50,7 @@ var
 begin
   Result := False;
   if HasEmpty(MapItems) then Exit;
-  SetLength(TmpItems, 0);
+  Empty(TmpItems);
   for I := 0 to Length(MapItems) - 1 do
     if HasItem(MapItems, I, MapID, AX, AY) then
     begin
@@ -116,7 +116,7 @@ procedure Items_Ground_GetMapItems(MapID: Integer; var AItems: TItems);
 var
   I: Integer;
 begin
-  SetLength(TmpItems, 0);
+  Empty(TmpItems);
   AItems := TmpItems;
   if HasEmpty(MapItems) then Exit;
   for I := 0 to Length(MapItems) - 1 do
@@ -131,7 +131,7 @@ procedure Items_Ground_GetMapItemsXY(MapID: Integer; AX, AY: Integer; var AItems
 var
   I: Integer;
 begin
-  SetLength(TmpItems, 0);
+  Empty(TmpItems);
   AItems := TmpItems;
   if HasEmpty(MapItems) then Exit;
   for I := 0 to Length(MapItems) - 1 do
