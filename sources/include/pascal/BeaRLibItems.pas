@@ -17,6 +17,7 @@ type
 procedure Items_Open(); stdcall; external 'BeaRLibItems.dll';
 procedure Items_Close(); stdcall; external 'BeaRLibItems.dll';
 function Items_GetVersion(): PChar; stdcall; external 'BeaRLibItems.dll';
+
 // Map
 procedure Items_Ground_Clear(); stdcall; external 'BeaRLibItems.dll';
 procedure Items_Ground_MapClear(MapID: Integer); stdcall; external 'BeaRLibItems.dll';
@@ -25,6 +26,9 @@ function Items_Ground_MapClearXY(MapID: Integer; AX, AY: Integer; var AItems: TI
 function Items_Ground_GetCount(): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Ground_GetMapCount(MapID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Ground_GetMapCountXY(MapID: Integer; AX, AY: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
+
+function Items_Ground_GetMapItemCount(MapID, ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
+function Items_Ground_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
 function Items_Ground_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Ground_GetItem(Index: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
