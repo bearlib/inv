@@ -1,2 +1,2 @@
-"c:\Program Files\PeaZip\res\upx\upx.exe" demo\*.dll
-"c:\Program Files\PeaZip\res\upx\upx.exe" demo\*.exe
+"d:\usr\upx\upx.exe" demo\*.dll
+"d:\usr\upx\upx.exe" demo\*.exe
