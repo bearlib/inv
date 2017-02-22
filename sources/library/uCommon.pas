@@ -29,6 +29,9 @@ procedure Items_Open();
 procedure Items_Close();
 function Items_GetVersion(): PChar; stdcall;
 
+// Add
+procedure Items_Clear_Item(var AItem: TItem);
+
 // Common
 function HasItem(AItems: TItems; Index, AMapID, AX, AY: Integer): Boolean;
 function IndexInRange(AItems: TItems; Index: Integer): Boolean;
@@ -40,6 +43,8 @@ procedure Empty(var AItems: TItems);
 implementation
 
 uses uGround, uInventory;
+
+// Library
 
 procedure Items_Open();
 begin
@@ -57,6 +62,21 @@ function Items_GetVersion(): PChar; stdcall;
 begin
   Result := LibVersion;
 end;
+
+//Add
+
+procedure Items_Clear_Item(var AItem: TItem);
+begin
+  with AItem do
+  begin
+    ItemID := -1;
+    X := -1;
+    Y := -1;
+    MapID := -1;
+  end;
+end;
+
+// Common
 
 function HasItem(AItems: TItems; Index, AMapID, AX, AY: Integer): Boolean;
 begin
