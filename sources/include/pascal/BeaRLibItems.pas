@@ -27,6 +27,7 @@ function Items_Ground_GetCount(): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Ground_GetMapCount(MapID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Ground_GetMapCountXY(MapID: Integer; AX, AY: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
+function Items_Ground_GetItemCount(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Ground_GetMapItemCount(MapID, ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Ground_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 

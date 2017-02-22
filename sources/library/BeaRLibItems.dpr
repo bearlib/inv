@@ -19,6 +19,7 @@ exports
   Items_Ground_GetMapCount,
   Items_Ground_GetMapCountXY,
 
+  Items_Ground_GetItemCount,
   Items_Ground_GetMapItemCount,
   Items_Ground_GetMapItemCountXY,
 

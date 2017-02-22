@@ -12,6 +12,7 @@ function Items_Ground_GetCount(): Integer; stdcall;
 function Items_Ground_GetMapCount(MapID: Integer): Integer; stdcall;
 function Items_Ground_GetMapCountXY(MapID: Integer; AX, AY: Integer): Integer; stdcall;
 
+function Items_Ground_GetItemCount(ItemID: Integer): Integer; stdcall;
 function Items_Ground_GetMapItemCount(MapID, ItemID: Integer): Integer; stdcall;
 function Items_Ground_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): Integer; stdcall;
 
@@ -87,6 +88,16 @@ begin
   if HasEmpty(MapItems) then Exit;
   for I := 0 to Length(MapItems) - 1 do
     if HasItem(MapItems, I, MapID, AX, AY) then
+      Inc(Result);
+end;
+
+function Items_Ground_GetItemCount(ItemID: Integer): Integer;
+var
+  I: Integer;
+begin
+  Result := 0;
+  for I := 0 to Length(MapItems) - 1 do
+    if (MapItems[I].ItemID = ItemID) then
       Inc(Result);
 end;
 
