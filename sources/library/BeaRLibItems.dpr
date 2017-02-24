@@ -2,7 +2,7 @@ library BeaRLibItems;
 
 uses      
   uCommon in 'uCommon.pas',
-  uGround in 'uGround.pas',
+  uMaps in 'uMaps.pas',
   uInventory in 'uInventory.pas';
 
 exports
@@ -11,29 +11,29 @@ exports
   Items_Close,
   Items_GetVersion,
   // Map
-  Items_Ground_Clear,
-  Items_Ground_MapClear,
-  Items_Ground_MapClearXY,
+  Items_Maps_Clear,
+  Items_Maps_MapClear,
+  Items_Maps_MapClearXY,
 
-  Items_Ground_GetCount,
-  Items_Ground_GetMapCount,
-  Items_Ground_GetMapCountXY,
+  Items_Maps_GetCount,
+  Items_Maps_GetMapCount,
+  Items_Maps_GetMapCountXY,
 
-  Items_Ground_GetItemCount,
-  Items_Ground_GetMapItemCount,
-  Items_Ground_GetMapItemCountXY,
+  Items_Maps_GetItemCount,
+  Items_Maps_GetMapItemCount,
+  Items_Maps_GetMapItemCountXY,
 
-  Items_Ground_SetItem,
-  Items_Ground_GetItem,
+  Items_Maps_SetItem,
+  Items_Maps_GetItem,
 
-  Items_Ground_SetItems, 
-  Items_Ground_GetItems,
-  Items_Ground_GetMapItems,
-  Items_Ground_GetMapItemsXY,
+  Items_Maps_SetItems, 
+  Items_Maps_GetItems,
+  Items_Maps_GetMapItems,
+  Items_Maps_GetMapItemsXY,
 
-  Items_Ground_Items_Append,
-  Items_Ground_Items_Delete,
-  Items_Ground_Items_DeleteXY,
+  Items_Maps_Items_Append,
+  Items_Maps_Items_Delete,
+  Items_Maps_Items_DeleteXY,
 
   // Inventory
   Items_Inventory_Clear,

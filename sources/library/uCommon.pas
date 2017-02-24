@@ -2,7 +2,6 @@ unit uCommon;
 
 interface
 
-{TODO: Переименовать Ground в Map?}
 {TODO: Ограничение по весу и\или объему [Jesus05]}
 {TODO: Стекинг [Jesus05]}
 
@@ -42,19 +41,19 @@ procedure Empty(var AItems: TItems);
 
 implementation
 
-uses uGround, uInventory;
+uses uMaps, uInventory;
 
 // Library
 
 procedure Items_Open();
 begin
-  Items_Ground_Clear();
+  Items_Maps_Clear();
   Items_Inventory_Clear();
 end;
 
 procedure Items_Close();
 begin
-  Items_Ground_Clear();
+  Items_Maps_Clear();
   Items_Inventory_Clear();
 end;
 
