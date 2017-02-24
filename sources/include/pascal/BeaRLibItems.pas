@@ -8,6 +8,7 @@ type
     X: Integer;
     Y: Integer;
     MapID: Integer;
+    Stack: Integer;
   end;
 
 type
@@ -46,10 +47,13 @@ function Items_Ground_Items_DeleteXY(MapID: Integer; Index, AX, AY: Integer; var
 // Inventory
 procedure Items_Inventory_Clear(); stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_GetCount(): Integer; stdcall; external 'BeaRLibItems.dll';
+
 function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_GetItem(Index: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
-procedure Items_Inventory_GetItems(var AItems: TItems); stdcall; external 'BeaRLibItems.dll';
+
 procedure Items_Inventory_SetItems(var AItems: TItems); stdcall; external 'BeaRLibItems.dll';
+procedure Items_Inventory_GetItems(var AItems: TItems); stdcall; external 'BeaRLibItems.dll';
+
 procedure Items_Inventory_Items_Append(AItem: TItem); stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 

@@ -23,11 +23,11 @@ exports
   Items_Ground_GetMapItemCount,
   Items_Ground_GetMapItemCountXY,
 
-  Items_Ground_GetItem,
   Items_Ground_SetItem,
+  Items_Ground_GetItem,
 
+  Items_Ground_SetItems, 
   Items_Ground_GetItems,
-  Items_Ground_SetItems,
   Items_Ground_GetMapItems,
   Items_Ground_GetMapItemsXY,
 
@@ -39,11 +39,11 @@ exports
   Items_Inventory_Clear,
   Items_Inventory_GetCount,
 
-  Items_Inventory_GetItem,
   Items_Inventory_SetItem,
+  Items_Inventory_GetItem,
 
-  Items_Inventory_GetItems,
   Items_Inventory_SetItems,
+  Items_Inventory_GetItems,
 
   Items_Inventory_Items_Append,
   Items_Inventory_Items_Delete;

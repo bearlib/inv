@@ -14,7 +14,7 @@ type
     ItemID: Integer;
     X, Y: Integer;
     MapID: Integer;
-//    Stack: Integer;
+    Stack: Integer;
 //    Amount: Integer;
 //    Durability: Integer;
 //    Weight: Integer;
@@ -73,6 +73,7 @@ begin
     X := -1;
     Y := -1;
     MapID := -1;
+    Stack := 1;
   end;
 end;
 
