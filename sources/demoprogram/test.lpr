@@ -8,9 +8,8 @@ uses
 
 var
   X, Y: Integer;
-  PlayerX: Integer = 9;
-  PlayerY: Integer = 9;
   CurrentMap: Integer = 0;
+  Player: TPoint;
 
 const
   MapWidth = 25;
@@ -76,12 +75,12 @@ const
     FItems: TItems;
   begin
     if (Items_Maps_GetMapCount(MapID) = 0) then Exit;
-    C := Items_Maps_GetMapCountXY(MapID, PlayerX, PlayerY);
+    C := Items_Maps_GetMapCountXY(MapID, Player.X, Player.Y);
     if (C <= 0) then Exit;
     if (C > 26) then C := 26;
-    Items_Maps_GetMapItemsXY(MapID, PlayerX, PlayerY, FItems);
+    Items_Maps_GetMapItemsXY(MapID, Player.X, Player.Y, FItems);
 
-    ConioEngineWriteString(MapWidth + 2, 4, 'Items on tile (' + IntToStr(Items_Maps_GetMapCountXY(MapID, PlayerX, PlayerY)) + '):', 15);
+    ConioEngineWriteString(MapWidth + 2, 4, 'Items on tile (' + IntToStr(Items_Maps_GetMapCountXY(MapID, Player.X, Player.Y)) + '):', 15);
 
     X := 0;
     Y := 0;
@@ -102,7 +101,7 @@ procedure Pickup(MapID, Index: Integer);
 var
   AItem: TItem;
 begin
-  if Items_Maps_Items_DeleteXY(MapID, Index - 97, PlayerX, PlayerY, AItem) then
+  if Items_Maps_Items_DeleteXY(MapID, Index - 97, Player.X, Player.Y, AItem) then
     Items_Inventory_Items_Append(AItem);
 end;
 
@@ -112,8 +111,8 @@ var
 begin
   if Items_Inventory_Items_Delete(Index - 97, AItem) then
   begin
-    AItem.X := PlayerX;
-    AItem.Y := PlayerY;
+    AItem.X := Player.X;
+    AItem.Y := Player.Y;
     AItem.MapID := MapID;
     Items_Maps_Items_Append(AItem);
   end;
@@ -141,6 +140,7 @@ begin
   Randomize;
   Items_Open;
   UConioEngineInit;
+  Player := Point(9, 9);
 
   for Y := 0 to MapHeight - 1 do
     for X := 0 to MapWidth - 1 do
@@ -171,11 +171,11 @@ begin
 
         RenderMapsItems(CurrentMap);
 
-        ConioEngineWriteChar(PlayerX + 1, PlayerY + 1, '@', 12);
+        ConioEngineWriteChar(Player.X + 1, Player.Y + 1, '@', 12);
         ConioEngineWriteString(MapWidth + 8, 1,
           '[2,4,6,8] Move, [SPACE] Inventory, [Esc] Close', 15);
-        ConioEngineWriteString(MapWidth + 2, 1, IntToStr(PlayerX)
-          + ':' + IntToStr(PlayerY), 15);
+        ConioEngineWriteString(MapWidth + 2, 1, IntToStr(Player.X)
+          + ':' + IntToStr(Player.Y), 15);
         ConioEngineWriteString(MapWidth + 2, 2, 'Items on cur. map: '
           + IntToStr(Items_Maps_GetMapCount(CurrentMap)) + ' [+,-] Select cur. map: '
           + IntToStr(CurrentMap), 15);
@@ -200,14 +200,14 @@ begin
       else
         case Key of
           '1': begin
-                 Items_Maps_MapClearXY(CurrentMap, PlayerX, PlayerY, FItems);
+                 Items_Maps_MapClearXY(CurrentMap, Player.X, Player.Y, FItems);
                end;
           '+': if (CurrentMap < MapDeep - 1) then CurrentMap := CurrentMap + 1;
           '-': if (CurrentMap > 0) then CurrentMap := CurrentMap - 1;
-          '2': Inc(PlayerY);
-          '4': Dec(PlayerX);
-          '6': Inc(PlayerX);
-          '8': Dec(PlayerY);
+          '2': Inc(Player.Y);
+          '4': Dec(Player.X);
+          '6': Inc(Player.X);
+          '8': Dec(Player.Y);
           'a'..'z': Pickup(CurrentMap, ord(Key));
           ' ': IsInventory := True;
           chr(27): break;
