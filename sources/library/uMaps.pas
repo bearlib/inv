@@ -28,6 +28,8 @@ procedure Items_Maps_Items_Append(AItem: TItem); stdcall;
 function Items_Maps_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall;
 function Items_Maps_Items_DeleteXY(MapID: Integer; Index, AX, AY: Integer; var AItem: TItem): Boolean; stdcall;
 
+function Items_Maps_GetMapItemAmountXY(MapID, ItemID, AX, AY: Integer): Integer; stdcall;
+
 implementation
 
 var
@@ -211,6 +213,18 @@ begin
       end;
       Inc(P);
     end;
+end;
+
+function Items_Maps_GetMapItemAmountXY(MapID, ItemID, AX, AY: Integer): Integer;
+var
+  I: Integer;
+begin
+  Result := 0;
+  if HasEmpty(MapItems) then Exit;
+  for I := 0 to Length(MapItems) - 1 do
+    if HasItem(MapItems, I, MapID, AX, AY)
+      and (MapItems[I].ItemID = ItemID) then
+        Inc(Result, MapItems[I].Amount);
 end;
 
 end.

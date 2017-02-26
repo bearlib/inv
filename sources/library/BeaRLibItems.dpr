@@ -35,6 +35,8 @@ exports
   Items_Maps_Items_Delete,
   Items_Maps_Items_DeleteXY,
 
+  Items_Maps_GetMapItemAmountXY,
+
   // Inventory
   Items_Inventory_Clear,
   Items_Inventory_GetCount,

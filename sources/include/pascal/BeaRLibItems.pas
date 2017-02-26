@@ -9,6 +9,7 @@ type
     Y: Integer;
     MapID: Integer;
     Stack: Integer;
+    Amount: Integer;
   end;
 
 type
@@ -43,6 +44,8 @@ procedure Items_Maps_GetMapItemsXY(MapID: Integer; AX, AY: Integer; var AItems: 
 procedure Items_Maps_Items_Append(AItem: TItem); stdcall; external 'BeaRLibItems.dll';
 function Items_Maps_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Maps_Items_DeleteXY(MapID: Integer; Index, AX, AY: Integer; var AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
+
+function Items_Maps_GetMapItemAmountXY(MapID, ItemID, AX, AY: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
 // Inventory
 procedure Items_Inventory_Clear(); stdcall; external 'BeaRLibItems.dll';

@@ -32,7 +32,7 @@ type
   end;
 
 const
-  BaseItemsAmount = 5;
+  BaseItemsAmount = 7;
 
 const
   ItemBase: array [0..BaseItemsAmount - 1] of TItemBase = (
@@ -40,7 +40,9 @@ const
   (ID: 2;  Char: '/'; Color: 11; Name: 'Long Sword'),
   (ID: 3;  Char: '('; Color: 12; Name: 'Dark Axe'),
   (ID: 4;  Char: '}'; Color: 13; Name: 'Bow'),
-  (ID: 5;  Char: '\'; Color: 14; Name: 'Spear')
+  (ID: 5;  Char: '\'; Color: 14; Name: 'Spear'),
+  (ID: 6;  Char: '$'; Color: 14; Name: 'Gold'),
+  (ID: 7;  Char: '`'; Color: 14; Name: 'Key')
   );
 
   procedure AddRandomItems(MapID, C: Integer);
@@ -54,6 +56,23 @@ const
       FItem.MapID := MapID;
       FItem.X := Math.RandomRange(1, MapWidth - 1);
       FItem.Y := Math.RandomRange(1, MapHeight - 1);
+      case FItem.ItemID of
+        6: // Gold
+        begin
+          FItem.Stack := 10;
+          FItem.Amount := Math.RandomRange(0, 10) + 1;
+        end;
+        7: // Key
+        begin
+          FItem.Stack := 5;
+          FItem.Amount := Math.RandomRange(0, 5) + 1;
+        end;
+        else
+        begin
+          FItem.Stack := 1;
+          FItem.Amount := 1;
+        end;
+      end;
       Items_Maps_Items_Append(FItem);
     end;
   end;
@@ -73,6 +92,7 @@ const
   var
     I, C, X, Y: Integer;
     FItems: TItems;
+    S: string;
   begin
     if (Items_Maps_GetMapCount(MapID) = 0) then Exit;
     C := Items_Maps_GetMapCountXY(MapID, Player.X, Player.Y);
@@ -86,8 +106,10 @@ const
     Y := 0;
     for I := 0 to C - 1 do
     begin
+      S := ''; if (FItems[I].Stack > 1) then S := ' (' + IntToStr(FItems[I].Amount) + ')';
       ConioEngineWriteString(MapWidth + X + 2, Y + 5, '[' + Chr(I + 97) + ']', 15);
-      ConioEngineWriteString(MapWidth + X + 6, Y + 5, ItemBase[FItems[I].ItemID - 1].Name, ItemBase[FItems[I].ItemID - 1].Color);
+      ConioEngineWriteString(MapWidth + X + 6, Y + 5, ItemBase[FItems[I].ItemID - 1].Name
+        + S, ItemBase[FItems[I].ItemID - 1].Color);
       Inc(Y);
       if (Y > 19) then
       begin

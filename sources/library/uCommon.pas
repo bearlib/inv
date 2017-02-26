@@ -14,7 +14,7 @@ type
     X, Y: Integer;
     MapID: Integer;
     Stack: Integer;
-//    Amount: Integer;
+    Amount: Integer;
 //    Durability: Integer;
 //    Weight: Integer;
 //    Size: Integer;
