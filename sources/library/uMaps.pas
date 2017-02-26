@@ -181,8 +181,37 @@ begin
 end;
 
 procedure Items_Maps_Items_Append(AItem: TItem);
+var
+  I, J, A: Integer;
 begin
-  AddItem(MapItems, AItem);
+  if (AItem.Stack > 1) then
+  begin
+    if (Items_Maps_GetMapItemCountXY(AItem.MapID, AItem.ItemID, AItem.X, AItem.Y) > 0) then
+    begin
+      A := AItem.Amount;
+      if not HasEmpty(MapItems) then
+        for I := 0 to Length(MapItems) - 1 do
+          if HasItem(MapItems, I, AItem.MapID, AItem.X, AItem.Y)
+            and (MapItems[I].ItemID = AItem.ItemID) then
+          begin
+            if (MapItems[I].Amount < AItem.Stack) then
+            begin
+              J := AItem.Stack - MapItems[I].Amount;
+              if (A - J < 0) then J := A;
+              Dec(A, J);
+              Inc(MapItems[I].Amount, J);
+            end;
+          end;
+      while (A > 0) do
+      begin
+        J := AItem.Stack;
+        if (A - J < 0) then J := A;
+        Dec(A, J);
+        AItem.Amount := J;
+        AddItem(MapItems, AItem);
+      end;
+    end else AddItem(MapItems, AItem);
+  end else AddItem(MapItems, AItem);
 end;
 
 function Items_Maps_Items_Delete(Index: Integer; var AItem: TItem): Boolean;

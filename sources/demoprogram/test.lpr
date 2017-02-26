@@ -144,12 +144,14 @@ procedure RenderInventoryItems();
 var
   I: Integer;
   FItems: TItems;
+  S: string;
 begin
   Items_Inventory_GetItems(FItems);
   for I := 0 to Items_Inventory_GetCount() - 1 do
   begin
+    S := ''; if (FItems[I].Stack > 1) then S := ' (' + IntToStr(FItems[I].Amount) + ')';
     ConioEngineWriteString(4 + 2, I + 2, '[' + Chr(I + 97) + ']', 15);
-    ConioEngineWriteString(4 + 6, I + 2, ItemBase[FItems[I].ItemID - 1].Name, ItemBase[FItems[I].ItemID - 1].Color);
+    ConioEngineWriteString(4 + 6, I + 2, ItemBase[FItems[I].ItemID - 1].Name + S, ItemBase[FItems[I].ItemID - 1].Color);
   end;
 end;
 
