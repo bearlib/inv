@@ -39,7 +39,7 @@ const
   (ID: 1;  Char: '('; Color: 10; Name: 'Short Sword'),
   (ID: 2;  Char: '/'; Color: 11; Name: 'Long Sword'),
   (ID: 3;  Char: '('; Color: 12; Name: 'Dark Axe'),
-  (ID: 4;  Char: '}'; Color: 13; Name: 'Bow'),
+  (ID: 4;  Char: '}'; Color: 13; Name: 'Short Bow'),
   (ID: 5;  Char: '\'; Color: 14; Name: 'Spear'),
   (ID: 6;  Char: '$'; Color: 14; Name: 'Gold'),
   (ID: 7;  Char: '`'; Color: 14; Name: 'Key')
@@ -60,7 +60,7 @@ const
         6: // Gold
         begin
           FItem.Stack := 10;
-          FItem.Amount := Math.RandomRange(0, 10) + 1;
+          FItem.Amount := Math.RandomRange(0, 25) + 1;
         end;
         7: // Key
         begin
@@ -122,22 +122,75 @@ const
 procedure Pickup(MapID, Index: Integer);
 var
   AItem: TItem;
+  N: Integer;
 begin
-  if Items_Maps_Items_DeleteXY(MapID, Index - 97, Player.X, Player.Y, AItem) then
+  Index := Index - 97;
+  AItem := Items_Maps_GetMapItemXY(MapID, Index, Player.X, Player.Y);
+  if (AItem.Stack > 1) and (AItem.Amount > 1) then
+  begin
+    GoToXY(50, 4);
+    Write('Enter amount:');
+    ReadLn(N);
+    if (N > 0) and (N <= AItem.Amount) then
+    begin
+      AItem.Amount := AItem.Amount - N;
+      if (AItem.Amount <= 0) then
+      begin
+        if Items_Maps_Items_DeleteXY(MapID, Index, Player.X, Player.Y, AItem) then
+          Items_Inventory_Items_Append(AItem);
+        Exit;
+      end;
+      if not Items_Maps_SetMapItemXY(MapID, Index, Player.X, Player.Y, AItem) then Exit;
+      AItem.Amount := N;
+      Items_Inventory_Items_Append(AItem);
+    end;
+    Exit;
+  end;
+  if Items_Maps_Items_DeleteXY(MapID, Index, Player.X, Player.Y, AItem) then
     Items_Inventory_Items_Append(AItem);
 end;
 
 procedure Drop(MapID, Index: Integer);
 var
   AItem: TItem;
-begin
-  if Items_Inventory_Items_Delete(Index - 97, AItem) then
+  N: Integer;
+
+  procedure DeleteItem;
   begin
-    AItem.X := Player.X;
-    AItem.Y := Player.Y;
-    AItem.MapID := MapID;
-    Items_Maps_Items_Append(AItem);
+    if Items_Inventory_Items_Delete(Index, AItem) then
+    begin
+      AItem.X := Player.X;
+      AItem.Y := Player.Y;
+      AItem.MapID := MapID;
+      Items_Maps_Items_Append(AItem);
+    end;
   end;
+
+begin
+  Index := Index - 97;
+  AItem := Items_Inventory_GetItem(Index);
+  if (AItem.Stack > 1) and (AItem.Amount > 1) then
+  begin
+    GoToXY(50, 4);
+    Write('Enter amount:');
+    ReadLn(N);
+    if (N > 0) and (N <= AItem.Amount) then
+    begin
+      AItem.Amount := AItem.Amount - N;
+      if (AItem.Amount <= 0) then
+      begin
+        DeleteItem;
+        Exit;
+      end;
+      if not Items_Inventory_SetItem(Index, AItem) then Exit;
+      AItem.X := Player.X;
+      AItem.Y := Player.Y;
+      AItem.MapID := MapID;
+      AItem.Amount := N;
+      Items_Maps_Items_Append(AItem);
+    end;
+    Exit;
+  end else DeleteItem;
 end;
 
 procedure RenderInventoryItems();

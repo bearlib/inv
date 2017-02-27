@@ -19,6 +19,9 @@ function Items_Maps_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): 
 function Items_Maps_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall;
 function Items_Maps_GetItem(Index: Integer): TItem; stdcall;
 
+function Items_Maps_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: TItem): Boolean; stdcall;
+function Items_Maps_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): TItem; stdcall;
+
 procedure Items_Maps_SetItems(var AItems: TItems); stdcall;
 procedure Items_Maps_GetItems(var AItems: TItems); stdcall;
 procedure Items_Maps_GetMapItems(MapID: Integer; var AItems: TItems); stdcall;
@@ -140,6 +143,33 @@ begin
   end;
 end;
 
+function Items_Maps_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: TItem): Boolean;
+var
+  I: Integer;
+begin
+  Result := False;
+  if HasEmpty(MapItems) then Exit;
+  if not IndexInRange(MapItems, Index)then Exit;
+  I := GlobalIndex(MapID, Index, AX, AY, MapItems);
+  if (I < 0) then Exit;
+  MapItems[I] := AItem;
+  Result := True;
+end;
+
+function Items_Maps_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): TItem;
+var
+  FItem: TItem;
+  I: Integer;
+begin
+  Result := FItem;
+  Items_Clear_Item(Result);
+  if HasEmpty(MapItems) then Exit;
+  if not IndexInRange(MapItems, Index)then Exit;
+  I := GlobalIndex(MapID, Index, AX, AY, MapItems);
+  if (I < 0) then Exit;
+  Result := MapItems[I];
+end;
+
 procedure Items_Maps_GetItems(var AItems: TItems);
 begin
   AItems := MapItems;
@@ -169,7 +199,7 @@ procedure Items_Maps_GetMapItemsXY(MapID: Integer; AX, AY: Integer; var AItems: 
 var
   I: Integer;
 begin
-  Empty(TmpItems);
+  Empty(TmpItems);  
   AItems := TmpItems;
   if HasEmpty(MapItems) then Exit;
   for I := 0 to Length(MapItems) - 1 do
@@ -183,6 +213,22 @@ end;
 procedure Items_Maps_Items_Append(AItem: TItem);
 var
   I, J, A: Integer;
+
+  procedure Add(var AItems: TItems; AItem: TItem);
+  var
+    A, J: Integer;
+  begin
+    A := AItem.Amount;
+    while (A > 0) do
+    begin
+      J := AItem.Stack;
+      if (A - J < 0) then J := A;
+      Dec(A, J);
+      AItem.Amount := J;
+      AddItem(MapItems, AItem);
+    end;
+  end;
+
 begin
   if (AItem.Stack > 1) then
   begin
@@ -210,8 +256,8 @@ begin
         AItem.Amount := J;
         AddItem(MapItems, AItem);
       end;
-    end else AddItem(MapItems, AItem);
-  end else AddItem(MapItems, AItem);
+    end else Add(MapItems, AItem);
+  end else Add(MapItems, AItem);
 end;
 
 function Items_Maps_Items_Delete(Index: Integer; var AItem: TItem): Boolean;

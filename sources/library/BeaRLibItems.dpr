@@ -25,8 +25,11 @@ exports
 
   Items_Maps_SetItem,
   Items_Maps_GetItem,
+  
+  Items_Maps_SetMapItemXY,
+  Items_Maps_GetMapItemXY,
 
-  Items_Maps_SetItems, 
+  Items_Maps_SetItems,
   Items_Maps_GetItems,
   Items_Maps_GetMapItems,
   Items_Maps_GetMapItemsXY,
@@ -40,6 +43,8 @@ exports
   // Inventory
   Items_Inventory_Clear,
   Items_Inventory_GetCount,
+
+  Items_Inventory_GetItemCount,
 
   Items_Inventory_SetItem,
   Items_Inventory_GetItem,

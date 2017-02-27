@@ -36,6 +36,9 @@ function Items_Maps_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): 
 function Items_Maps_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Maps_GetItem(Index: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
 
+function Items_Maps_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Maps_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
+
 procedure Items_Maps_SetItems(var AItems: TItems); stdcall; external 'BeaRLibItems.dll';
 procedure Items_Maps_GetItems(var AItems: TItems); stdcall; external 'BeaRLibItems.dll';
 procedure Items_Maps_GetMapItems(MapID: Integer; var AItems: TItems); stdcall; external 'BeaRLibItems.dll';
@@ -50,6 +53,8 @@ function Items_Maps_GetMapItemAmountXY(MapID, ItemID, AX, AY: Integer): Integer;
 // Inventory
 procedure Items_Inventory_Clear(); stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_GetCount(): Integer; stdcall; external 'BeaRLibItems.dll';
+
+function Items_Inventory_GetItemCount(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
 function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_GetItem(Index: Integer): TItem; stdcall; external 'BeaRLibItems.dll';

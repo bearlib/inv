@@ -38,6 +38,7 @@ procedure AddItem(var AItems: TItems; AItem: TItem);
 function DelItem(var AItems: TItems; Index: Integer): TItem;
 function HasEmpty(AItems: TItems): Boolean;
 procedure Empty(var AItems: TItems);
+function GlobalIndex(MapID, Index: Integer; AX, AY: Integer; AItems: TItems): Integer;
 
 implementation
 
@@ -73,6 +74,7 @@ begin
     Y := -1;
     MapID := -1;
     Stack := 1;
+    Amount := 1;
   end;
 end;
 
@@ -113,6 +115,26 @@ end;
 procedure Empty(var AItems: TItems);
 begin
   SetLength(AItems, 0);
+end;
+
+function GlobalIndex(MapID, Index: Integer; AX, AY: Integer; AItems: TItems): Integer;
+var
+  I, P: Integer;
+begin
+  Result := -1;
+  if HasEmpty(AItems) then Exit;
+  if not IndexInRange(AItems, Index)then Exit;
+  P := 0;
+  for I := 0 to Length(AItems) - 1 do
+    if HasItem(AItems, I, MapID, AX, AY) then
+    begin
+      if (P = Index) then
+      begin
+        Result := I;
+        Exit;
+      end;
+      Inc(P);
+    end;
 end;
 
 end.
