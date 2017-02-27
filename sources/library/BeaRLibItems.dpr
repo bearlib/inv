@@ -45,6 +45,7 @@ exports
   Items_Inventory_GetCount,
 
   Items_Inventory_GetItemCount,
+  Items_Inventory_GetItemAmount,
 
   Items_Inventory_SetItem,
   Items_Inventory_GetItem,

@@ -32,7 +32,7 @@ type
   end;
 
 const
-  BaseItemsAmount = 7;
+  BaseItemsAmount = 8;
 
 const
   ItemBase: array [0..BaseItemsAmount - 1] of TItemBase = (
@@ -42,7 +42,8 @@ const
   (ID: 4;  Char: '}'; Color: 13; Name: 'Short Bow'),
   (ID: 5;  Char: '\'; Color: 14; Name: 'Spear'),
   (ID: 6;  Char: '$'; Color: 14; Name: 'Gold'),
-  (ID: 7;  Char: '`'; Color: 14; Name: 'Key')
+  (ID: 7;  Char: '`'; Color: 14; Name: 'Key'),
+  (ID: 8;  Char: '"'; Color: 14; Name: 'Arrows')
   );
 
   procedure AddRandomItems(MapID, C: Integer);
@@ -66,6 +67,11 @@ const
         begin
           FItem.Stack := 5;
           FItem.Amount := Math.RandomRange(0, 5) + 1;
+        end;
+        8: // Arrows
+        begin
+          FItem.Stack := 50;
+          FItem.Amount := Math.RandomRange(0, 100) + 1;
         end;
         else
         begin
@@ -206,6 +212,7 @@ begin
     ConioEngineWriteString(4 + 2, I + 2, '[' + Chr(I + 97) + ']', 15);
     ConioEngineWriteString(4 + 6, I + 2, ItemBase[FItems[I].ItemID - 1].Name + S, ItemBase[FItems[I].ItemID - 1].Color);
   end;
+  ConioEngineWriteString(33, 3, 'GOLD: ' + IntToStr(Items_Inventory_GetItemAmount(6)), 14);
 end;
 
 var

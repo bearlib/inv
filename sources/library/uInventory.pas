@@ -8,6 +8,7 @@ procedure Items_Inventory_Clear(); stdcall;
 function Items_Inventory_GetCount(): Integer; stdcall;
 
 function Items_Inventory_GetItemCount(ItemID: Integer): Integer; stdcall;
+function Items_Inventory_GetItemAmount(ItemID: Integer): Integer; stdcall;
 
 function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall;
 function Items_Inventory_GetItem(Index: Integer): TItem; stdcall;
@@ -41,6 +42,16 @@ begin
   for I := 0 to Length(InvItems) - 1 do
     if (InvItems[I].ItemID = ItemID) then
       Inc(Result);
+end;
+
+function Items_Inventory_GetItemAmount(ItemID: Integer): Integer;
+var
+  I: Integer;
+begin
+  Result := 0;
+  for I := 0 to Length(InvItems) - 1 do
+    if (InvItems[I].ItemID = ItemID) then
+      Inc(Result, InvItems[I].Amount);
 end;
 
 function Items_Inventory_GetItem(Index: Integer): TItem;

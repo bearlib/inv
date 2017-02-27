@@ -55,6 +55,7 @@ procedure Items_Inventory_Clear(); stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_GetCount(): Integer; stdcall; external 'BeaRLibItems.dll';
 
 function Items_Inventory_GetItemCount(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
+function Items_Inventory_GetItemAmount(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
 function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_GetItem(Index: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
