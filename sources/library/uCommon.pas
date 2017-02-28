@@ -3,10 +3,9 @@ unit uCommon;
 interface
 
 {TODO: Ограничение по весу и\или объему [Jesus05]}
-{TODO: Стекинг [Jesus05]}
 
 const
-  LibVersion = '0.3.0';
+  LibVersion = '0.4.0';
 
 type
   TItem = record
