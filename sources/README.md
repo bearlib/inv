@@ -8,5 +8,5 @@
 Поддерживаемые языки программирования: FreePascal (Delphi).
 
 ##Library
-Исходники библиотеки: FreePascal (Delphi).
+Исходники библиотеки: Delphi.
 
