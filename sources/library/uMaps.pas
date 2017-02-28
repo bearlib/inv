@@ -38,12 +38,12 @@ implementation
 var
   MapItems, TmpItems: TItems;
 
-procedure Items_Maps_Clear();
+procedure Items_Maps_Clear(); stdcall;
 begin
   Empty(MapItems);
 end;
 
-procedure Items_Maps_MapClear(MapID: Integer);
+procedure Items_Maps_MapClear(MapID: Integer); stdcall;
 var
   I: Integer;
 begin
@@ -52,7 +52,7 @@ begin
       DelItem(MapItems, I);
 end;
 
-function Items_Maps_MapClearXY(MapID: Integer; AX, AY: Integer; var AItems: TItems): Boolean;
+function Items_Maps_MapClearXY(MapID: Integer; AX, AY: Integer; var AItems: TItems): Boolean; stdcall;
 var
   I: Integer;
   AItem: TItem;
@@ -70,12 +70,12 @@ begin
     end;
 end;
 
-function Items_Maps_GetCount(): Integer;
+function Items_Maps_GetCount(): Integer; stdcall;
 begin
   Result := Length(MapItems);
 end;
 
-function Items_Maps_GetMapCount(MapID: Integer): Integer;
+function Items_Maps_GetMapCount(MapID: Integer): Integer; stdcall;
 var
   I: Integer;
 begin
@@ -85,7 +85,7 @@ begin
       Inc(Result);
 end;
 
-function Items_Maps_GetMapCountXY(MapID: Integer; AX, AY: Integer): Integer;
+function Items_Maps_GetMapCountXY(MapID: Integer; AX, AY: Integer): Integer; stdcall;
 var
   I: Integer;
 begin
@@ -96,7 +96,7 @@ begin
       Inc(Result);
 end;
 
-function Items_Maps_GetItemCount(ItemID: Integer): Integer;
+function Items_Maps_GetItemCount(ItemID: Integer): Integer; stdcall;
 var
   I: Integer;
 begin
@@ -106,7 +106,7 @@ begin
       Inc(Result);
 end;
 
-function Items_Maps_GetMapItemCount(MapID, ItemID: Integer): Integer;
+function Items_Maps_GetMapItemCount(MapID, ItemID: Integer): Integer; stdcall;
 var
   I: Integer;
 begin
@@ -116,7 +116,7 @@ begin
       Inc(Result);
 end;
 
-function Items_Maps_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): Integer;
+function Items_Maps_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): Integer; stdcall;
 var
   I: Integer;
 begin
@@ -128,12 +128,12 @@ begin
         Inc(Result);
 end;
 
-function Items_Maps_GetItem(Index: Integer): TItem;
+function Items_Maps_GetItem(Index: Integer): TItem; stdcall;
 begin
   Result := MapItems[Index];
 end;
 
-function Items_Maps_SetItem(Index: Integer; AItem: TItem): Boolean;
+function Items_Maps_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall;
 begin
   Result := False;
   if IndexInRange(MapItems, Index) then
@@ -143,7 +143,7 @@ begin
   end;
 end;
 
-function Items_Maps_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: TItem): Boolean;
+function Items_Maps_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: TItem): Boolean; stdcall;
 var
   I: Integer;
 begin
@@ -156,7 +156,7 @@ begin
   Result := True;
 end;
 
-function Items_Maps_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): TItem;
+function Items_Maps_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): TItem; stdcall;
 var
   FItem: TItem;
   I: Integer;
@@ -170,17 +170,17 @@ begin
   Result := MapItems[I];
 end;
 
-procedure Items_Maps_GetItems(var AItems: TItems);
+procedure Items_Maps_GetItems(var AItems: TItems); stdcall;
 begin
   AItems := MapItems;
 end;
 
-procedure Items_Maps_SetItems(var AItems: TItems);
+procedure Items_Maps_SetItems(var AItems: TItems); stdcall;
 begin
   MapItems := AItems;
 end;
 
-procedure Items_Maps_GetMapItems(MapID: Integer; var AItems: TItems);
+procedure Items_Maps_GetMapItems(MapID: Integer; var AItems: TItems); stdcall;
 var
   I: Integer;
 begin
@@ -195,7 +195,7 @@ begin
     end;
 end;
 
-procedure Items_Maps_GetMapItemsXY(MapID: Integer; AX, AY: Integer; var AItems: TItems);
+procedure Items_Maps_GetMapItemsXY(MapID: Integer; AX, AY: Integer; var AItems: TItems); stdcall;
 var
   I: Integer;
 begin
@@ -210,11 +210,11 @@ begin
     end;
 end;
 
-procedure Items_Maps_Items_Append(AItem: TItem);
+procedure Items_Maps_Items_Append(AItem: TItem); stdcall;
 var
   I, J, A: Integer;
 
-  procedure Add(var AItems: TItems; AItem: TItem);
+  procedure Add(var AItems: TItems; AItem: TItem); stdcall;
   var
     A, J: Integer;
   begin
@@ -260,7 +260,7 @@ begin
   end else Add(MapItems, AItem);
 end;
 
-function Items_Maps_Items_Delete(Index: Integer; var AItem: TItem): Boolean;
+function Items_Maps_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall;
 begin
   Result := False;
   if IndexInRange(MapItems, Index) then
@@ -270,7 +270,7 @@ begin
   end;
 end;
 
-function Items_Maps_Items_DeleteXY(MapID: Integer; Index, AX, AY: Integer; var AItem: TItem): Boolean;
+function Items_Maps_Items_DeleteXY(MapID: Integer; Index, AX, AY: Integer; var AItem: TItem): Boolean; stdcall;
 var
   I, P: Integer;
 begin
@@ -290,7 +290,7 @@ begin
     end;
 end;
 
-function Items_Maps_GetMapItemAmountXY(MapID, ItemID, AX, AY: Integer): Integer;
+function Items_Maps_GetMapItemAmountXY(MapID, ItemID, AX, AY: Integer): Integer; stdcall;
 var
   I: Integer;
 begin

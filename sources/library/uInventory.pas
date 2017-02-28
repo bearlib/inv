@@ -24,17 +24,17 @@ implementation
 var
   InvItems: TItems;
 
-procedure Items_Inventory_Clear();
+procedure Items_Inventory_Clear(); stdcall;
 begin
   Empty(InvItems);
 end;
 
-function Items_Inventory_GetCount(): Integer;
+function Items_Inventory_GetCount(): Integer; stdcall;
 begin
   Result := Length(InvItems);
 end;
 
-function Items_Inventory_GetItemCount(ItemID: Integer): Integer;
+function Items_Inventory_GetItemCount(ItemID: Integer): Integer; stdcall;
 var
   I: Integer;
 begin
@@ -44,7 +44,7 @@ begin
       Inc(Result);
 end;
 
-function Items_Inventory_GetItemAmount(ItemID: Integer): Integer;
+function Items_Inventory_GetItemAmount(ItemID: Integer): Integer; stdcall;
 var
   I: Integer;
 begin
@@ -54,12 +54,12 @@ begin
       Inc(Result, InvItems[I].Amount);
 end;
 
-function Items_Inventory_GetItem(Index: Integer): TItem;
+function Items_Inventory_GetItem(Index: Integer): TItem; stdcall;
 begin
   Result := InvItems[Index];
 end;
 
-function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean;
+function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall;
 begin
   Result := False;
   if IndexInRange(InvItems, Index) then
@@ -69,17 +69,17 @@ begin
   end;
 end;
 
-procedure Items_Inventory_GetItems(var AItems: TItems);
+procedure Items_Inventory_GetItems(var AItems: TItems); stdcall;
 begin
   AItems := InvItems;
 end;
 
-procedure Items_Inventory_SetItems(var AItems: TItems);
+procedure Items_Inventory_SetItems(var AItems: TItems); stdcall;
 begin
   InvItems := AItems;
 end;
 
-procedure Items_Inventory_Items_Append(AItem: TItem);
+procedure Items_Inventory_Items_Append(AItem: TItem); stdcall;
 var
   I, J, A: Integer;
 begin
@@ -112,7 +112,7 @@ begin
   end else AddItem(InvItems, AItem);
 end;
 
-function Items_Inventory_Items_Delete(Index: Integer; var AItem: TItem): Boolean;
+function Items_Inventory_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall;
 begin
   Result := False;
   if IndexInRange(InvItems, Index) then

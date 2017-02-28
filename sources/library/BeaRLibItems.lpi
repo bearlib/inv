@@ -10,7 +10,7 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="test"/>
+      <Title Value="BeaRLibItems"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
@@ -33,7 +33,7 @@
     </RunParams>
     <Units Count="1">
       <Unit0>
-        <Filename Value="test.lpr"/>
+        <Filename Value="BeaRLibItems.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
     </Units>
@@ -42,20 +42,18 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="../../demo/demoprogram"/>
+      <Filename Value="../../demo/BeaRLibItems"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
     </SearchPaths>
     <CodeGeneration>
-      <SmartLinkUnit Value="True"/>
+      <RelocatableUnit Value="True"/>
     </CodeGeneration>
     <Linking>
-      <Debugging>
-        <StripSymbols Value="True"/>
-        <UseExternalDbgSyms Value="True"/>
-      </Debugging>
-      <LinkSmart Value="True"/>
+      <Options>
+        <ExecutableType Value="Library"/>
+      </Options>
     </Linking>
   </CompilerOptions>
   <Debugging>
