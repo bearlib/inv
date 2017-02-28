@@ -23,7 +23,7 @@ function Items_GetVersion(): PChar; stdcall; external 'BeaRLibItems.dll';
 // Maps
 procedure Items_Maps_Clear(); stdcall; external 'BeaRLibItems.dll';
 procedure Items_Maps_MapClear(MapID: Integer); stdcall; external 'BeaRLibItems.dll';
-function Items_Maps_MapClearXY(MapID: Integer; AX, AY: Integer; var AItems: TItems): Boolean; stdcall; external 'BeaRLibItems.dll';
+procedure Items_Maps_MapClearXY(MapID: Integer; AX, AY: Integer); stdcall; external 'BeaRLibItems.dll';
 
 function Items_Maps_GetCount(): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Maps_GetMapCount(MapID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
@@ -35,6 +35,9 @@ function Items_Maps_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): 
 
 function Items_Maps_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Maps_GetItem(Index: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
+
+function Items_Maps_SetMapItem(MapID, Index: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Maps_GetMapItem(MapID, Index: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
 
 function Items_Maps_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
 function Items_Maps_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): TItem; stdcall; external 'BeaRLibItems.dll';

@@ -31,13 +31,14 @@ function Items_GetVersion(): PChar; stdcall;
 procedure Items_Clear_Item(var AItem: TItem);
 
 // Common
-function HasItem(AItems: TItems; Index, AMapID, AX, AY: Integer): Boolean;
+function HasItem(AItems: TItems; Index, AMapID: Integer): Boolean; overload;
+function HasItem(AItems: TItems; Index, AMapID: Integer; AX, AY: Integer): Boolean; overload;
 function IndexInRange(AItems: TItems; Index: Integer): Boolean;
 procedure AddItem(var AItems: TItems; AItem: TItem);
 function DelItem(var AItems: TItems; Index: Integer): TItem;
 function HasEmpty(AItems: TItems): Boolean;
 procedure Empty(var AItems: TItems);
-function GlobalIndex(MapID, Index: Integer; AX, AY: Integer; AItems: TItems): Integer;
+function GlobalIndex(AItems: TItems; MapID, Index: Integer; AX: Integer = -1; AY: Integer = -1): Integer;
 
 implementation
 
@@ -79,9 +80,16 @@ end;
 
 // Common
 
-function HasItem(AItems: TItems; Index, AMapID, AX, AY: Integer): Boolean;
+function HasItem(AItems: TItems; Index, AMapID: Integer): Boolean;
 begin
-  Result := (AItems[Index].MapID = AMapID) and (AItems[Index].X = AX) and (AItems[Index].Y = AY);
+  Result := (AItems[Index].MapID = AMapID);
+end;
+
+function HasItem(AItems: TItems; Index, AMapID: Integer; AX, AY: Integer): Boolean;
+begin
+  if (AX = -1) and (AY = -1) then
+    Result := HasItem(AItems, Index, AMapID)
+      else Result := (AItems[Index].MapID = AMapID) and (AItems[Index].X = AX) and (AItems[Index].Y = AY);
 end;
 
 function IndexInRange(AItems: TItems; Index: Integer): Boolean;
@@ -116,7 +124,7 @@ begin
   SetLength(AItems, 0);
 end;
 
-function GlobalIndex(MapID, Index: Integer; AX, AY: Integer; AItems: TItems): Integer;
+function GlobalIndex(AItems: TItems; MapID, Index: Integer; AX: Integer = -1; AY: Integer = -1): Integer;
 var
   I, P: Integer;
 begin

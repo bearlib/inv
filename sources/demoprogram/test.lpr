@@ -85,37 +85,40 @@ const
 
   procedure RenderMapsItems(MapID: Integer);
   var
-    I: Integer;
-    FItems: TItems;
+    I, Count: Integer;
+    FItem: TItem;
   begin
-    Items_Maps_GetMapItems(MapID, FItems);
-    for I := Items_Maps_GetMapCount(MapID) - 1 downto 0 do
-      ConioEngineWriteChar(FItems[I].X + 1, FItems[I].Y + 1,
-        ItemBase[FItems[I].ItemID - 1].Char, ItemBase[FItems[I].ItemID - 1].Color);
+    Count := Items_Maps_GetMapCount(MapID);
+    for I := Count - 1 downto 0 do
+    begin
+      FItem := Items_Maps_GetMapItem(MapID, I);
+      ConioEngineWriteChar(FItem.X + 1, FItem.Y + 1,
+        ItemBase[FItem.ItemID - 1].Char, ItemBase[FItem.ItemID - 1].Color);
+    end;
   end;
 
   procedure RenderTileInfo(MapID: Integer);
   var
-    I, C, X, Y: Integer;
-    FItems: TItems;
+    I, Count, X, Y: Integer;
+    FItem: TItem;
     S: string;
   begin
     if (Items_Maps_GetMapCount(MapID) = 0) then Exit;
-    C := Items_Maps_GetMapCountXY(MapID, Player.X, Player.Y);
-    if (C <= 0) then Exit;
-    if (C > 26) then C := 26;
-    Items_Maps_GetMapItemsXY(MapID, Player.X, Player.Y, FItems);
+    Count := Items_Maps_GetMapCountXY(MapID, Player.X, Player.Y);
+    if (Count <= 0) then Exit;
+    if (Count > 26) then Count := 26;
 
     ConioEngineWriteString(MapWidth + 2, 4, 'Items on tile (' + IntToStr(Items_Maps_GetMapCountXY(MapID, Player.X, Player.Y)) + '):', 15);
 
     X := 0;
     Y := 0;
-    for I := 0 to C - 1 do
+    for I := 0 to Count - 1 do
     begin
-      S := ''; if (FItems[I].Stack > 1) then S := ' (' + IntToStr(FItems[I].Amount) + ')';
+      FItem := Items_Maps_GetMapItemXY(MapID, I, Player.X, Player.Y);
+      S := ''; if (FItem.Stack > 1) then S := ' (' + IntToStr(FItem.Amount) + ')';
       ConioEngineWriteString(MapWidth + X + 2, Y + 5, '[' + Chr(I + 97) + ']', 15);
-      ConioEngineWriteString(MapWidth + X + 6, Y + 5, ItemBase[FItems[I].ItemID - 1].Name
-        + S, ItemBase[FItems[I].ItemID - 1].Color);
+      ConioEngineWriteString(MapWidth + X + 6, Y + 5, ItemBase[FItem.ItemID - 1].Name
+        + S, ItemBase[FItem.ItemID - 1].Color);
       Inc(Y);
       if (Y > 19) then
       begin
@@ -201,16 +204,17 @@ end;
 
 procedure RenderInventoryItems();
 var
-  I: Integer;
-  FItems: TItems;
+  I, Count: Integer;
   S: string;
+  FItem: TItem;
 begin
-  Items_Inventory_GetItems(FItems);
-  for I := 0 to Items_Inventory_GetCount() - 1 do
+  Count := Items_Inventory_GetCount();
+  for I := 0 to Count - 1 do
   begin
-    S := ''; if (FItems[I].Stack > 1) then S := ' (' + IntToStr(FItems[I].Amount) + ')';
+    FItem := Items_Inventory_GetItem(I);
+    S := ''; if (FItem.Stack > 1) then S := ' (' + IntToStr(FItem.Amount) + ')';
     ConioEngineWriteString(4 + 2, I + 2, '[' + Chr(I + 97) + ']', 15);
-    ConioEngineWriteString(4 + 6, I + 2, ItemBase[FItems[I].ItemID - 1].Name + S, ItemBase[FItems[I].ItemID - 1].Color);
+    ConioEngineWriteString(4 + 6, I + 2, ItemBase[FItem.ItemID - 1].Name + S, ItemBase[FItem.ItemID - 1].Color);
   end;
   ConioEngineWriteString(33, 3, 'GOLD: ' + IntToStr(Items_Inventory_GetItemAmount(6)), 14);
 end;
@@ -218,7 +222,6 @@ end;
 var
   I: Byte;
   Key: Char;
-  FItems: TItems;
 
 begin
   Randomize;
@@ -284,7 +287,7 @@ begin
       else
         case Key of
           '1': begin
-                 Items_Maps_MapClearXY(CurrentMap, Player.X, Player.Y, FItems);
+                 Items_Maps_MapClearXY(CurrentMap, Player.X, Player.Y);
                end;
           '+': if (CurrentMap < MapDeep - 1) then CurrentMap := CurrentMap + 1;
           '-': if (CurrentMap > 0) then CurrentMap := CurrentMap - 1;

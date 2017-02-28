@@ -28,6 +28,9 @@ exports
   Items_Maps_SetItem,
   Items_Maps_GetItem,
 
+  Items_Maps_SetMapItem,
+  Items_Maps_GetMapItem,
+
   Items_Maps_SetMapItemXY,
   Items_Maps_GetMapItemXY,
 

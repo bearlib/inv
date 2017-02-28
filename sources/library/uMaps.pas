@@ -6,7 +6,7 @@ uses uCommon;
 
 procedure Items_Maps_Clear(); stdcall;
 procedure Items_Maps_MapClear(MapID: Integer); stdcall;
-function Items_Maps_MapClearXY(MapID: Integer; AX, AY: Integer; var AItems: TItems): Boolean; stdcall;
+procedure Items_Maps_MapClearXY(MapID: Integer; AX, AY: Integer); stdcall;
 
 function Items_Maps_GetCount(): Integer; stdcall;
 function Items_Maps_GetMapCount(MapID: Integer): Integer; stdcall;
@@ -18,6 +18,9 @@ function Items_Maps_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): 
 
 function Items_Maps_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall;
 function Items_Maps_GetItem(Index: Integer): TItem; stdcall;
+
+function Items_Maps_SetMapItem(MapID, Index: Integer; AItem: TItem): Boolean; stdcall;
+function Items_Maps_GetMapItem(MapID, Index: Integer): TItem; stdcall;
 
 function Items_Maps_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: TItem): Boolean; stdcall;
 function Items_Maps_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): TItem; stdcall;
@@ -48,26 +51,19 @@ var
   I: Integer;
 begin
   for I := 0 to Length(MapItems) - 1 do
-    if (MapItems[I].MapID = MapID) then
+    if HasItem(MapItems, I, MapID) then
       DelItem(MapItems, I);
 end;
 
-function Items_Maps_MapClearXY(MapID: Integer; AX, AY: Integer; var AItems: TItems): Boolean; stdcall;
+procedure Items_Maps_MapClearXY(MapID: Integer; AX, AY: Integer); stdcall;
 var
   I: Integer;
-  AItem: TItem;
 begin
-  Result := False;
   if HasEmpty(MapItems) then Exit;
   Empty(TmpItems);
   for I := 0 to Length(MapItems) - 1 do
     if HasItem(MapItems, I, MapID, AX, AY) then
-    begin
-      Result := True;
-      AItem := DelItem(MapItems, I);
-      AddItem(TmpItems, AItem);
-      AItems := TmpItems;
-    end;
+       DelItem(MapItems, I);
 end;
 
 function Items_Maps_GetCount(): Integer; stdcall;
@@ -81,7 +77,7 @@ var
 begin
   Result := 0;
   for I := 0 to Length(MapItems) - 1 do
-    if (MapItems[I].MapID = MapID) then
+    if HasItem(MapItems, I, MapID) then
       Inc(Result);
 end;
 
@@ -143,14 +139,41 @@ begin
   end;
 end;
 
+function Items_Maps_SetMapItem(MapID, Index: Integer; AItem: TItem): Boolean; stdcall;
+var
+  I: Integer;
+begin
+  Result := False;
+  if HasEmpty(MapItems) then Exit;
+  if not IndexInRange(MapItems, Index) then Exit;
+  I := GlobalIndex(MapItems, MapID, Index);
+  if (I < 0) then Exit;
+  MapItems[I] := AItem;
+  Result := True;
+end;
+
+function Items_Maps_GetMapItem(MapID, Index: Integer): TItem; stdcall;
+var
+  FItem: TItem;
+  I: Integer;
+begin
+  Result := FItem;
+  Items_Clear_Item(Result);
+  if HasEmpty(MapItems) then Exit;
+  if not IndexInRange(MapItems, Index) then Exit;
+  I := GlobalIndex(MapItems, MapID, Index);
+  if (I < 0) then Exit;
+  Result := MapItems[I];
+end;
+
 function Items_Maps_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: TItem): Boolean; stdcall;
 var
   I: Integer;
 begin
   Result := False;
   if HasEmpty(MapItems) then Exit;
-  if not IndexInRange(MapItems, Index)then Exit;
-  I := GlobalIndex(MapID, Index, AX, AY, MapItems);
+  if not IndexInRange(MapItems, Index) then Exit;
+  I := GlobalIndex(MapItems, MapID, Index, AX, AY);
   if (I < 0) then Exit;
   MapItems[I] := AItem;
   Result := True;
@@ -164,8 +187,8 @@ begin
   Result := FItem;
   Items_Clear_Item(Result);
   if HasEmpty(MapItems) then Exit;
-  if not IndexInRange(MapItems, Index)then Exit;
-  I := GlobalIndex(MapID, Index, AX, AY, MapItems);
+  if not IndexInRange(MapItems, Index) then Exit;
+  I := GlobalIndex(MapItems, MapID, Index, AX, AY);
   if (I < 0) then Exit;
   Result := MapItems[I];
 end;
@@ -188,7 +211,7 @@ begin
   AItems := TmpItems;
   if HasEmpty(MapItems) then Exit;
   for I := 0 to Length(MapItems) - 1 do
-    if (MapItems[I].MapID = MapID) then
+    if HasItem(MapItems, I, MapID) then
     begin
       AddItem(TmpItems, MapItems[I]);
       AItems := TmpItems;

@@ -44,21 +44,21 @@ namespace BearLib
         // Maps
         public static class Maps
         {
-	        [DllImport("BeaRLibItems.dll", EntryPoint = "Items_Maps_Clear", CallingConvention=CallingConvention.StdCall)]
-    	    public static extern void Clear();
+			[DllImport("BeaRLibItems.dll", EntryPoint = "Items_Maps_Clear", CallingConvention=CallingConvention.StdCall)]
+			public static extern void Clear();
  
-    	    [DllImport("BeaRLibItems.dll", EntryPoint = "Items_Maps_GetCount", CallingConvention=CallingConvention.StdCall)]
-    	    public static extern int GetCount();
+			[DllImport("BeaRLibItems.dll", EntryPoint = "Items_Maps_GetCount", CallingConvention=CallingConvention.StdCall)]
+			public static extern int GetCount();
        }
         
         // Inventory
         public static class Inventory
         {
-	        [DllImport("BeaRLibItems.dll", EntryPoint = "Items_Inventory_Clear", CallingConvention=CallingConvention.StdCall)]
-    	    public static extern void Clear();
+			[DllImport("BeaRLibItems.dll", EntryPoint = "Items_Inventory_Clear", CallingConvention=CallingConvention.StdCall)]
+			public static extern void Clear();
 
-    	    [DllImport("BeaRLibItems.dll", EntryPoint = "Items_Inventory_GetCount", CallingConvention=CallingConvention.StdCall)]
-    	    public static extern int GetCount();
+			[DllImport("BeaRLibItems.dll", EntryPoint = "Items_Inventory_GetCount", CallingConvention=CallingConvention.StdCall)]
+			public static extern int GetCount();
         }
         
 	}
