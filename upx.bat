@@ -1,2 +1,2 @@
-"d:\usr\upx\upx.exe" demo\*.dll
-"d:\usr\upx\upx.exe" demo\*.exe
+upx.exe demo\*.dll
+upx.exe demo\*.exe
