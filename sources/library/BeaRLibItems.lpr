@@ -4,7 +4,8 @@ library BeaRLibItems;
 
 uses
   uCommon in 'uCommon.pas',
-  uMaps in 'uMaps.pas',
+  uLibrary in 'uLibrary.pas',
+  uDungeon in 'uDungeon.pas',
   uInventory in 'uInventory.pas';
 
 exports
@@ -12,38 +13,34 @@ exports
   Items_Open,
   Items_Close,
   Items_GetVersion,
+
   // Map
-  Items_Maps_Clear,
-  Items_Maps_MapClear,
-  Items_Maps_MapClearXY,
+  Items_Dungeon_Clear,
+  Items_Dungeon_MapClear,
+  Items_Dungeon_MapClearXY,
 
-  Items_Maps_GetCount,
-  Items_Maps_GetMapCount,
-  Items_Maps_GetMapCountXY,
+  Items_Dungeon_GetCount,
+  Items_Dungeon_GetMapCount,
+  Items_Dungeon_GetMapCountXY,
 
-  Items_Maps_GetItemCount,
-  Items_Maps_GetMapItemCount,
-  Items_Maps_GetMapItemCountXY,
+  Items_Dungeon_GetItemCount,
+  Items_Dungeon_GetMapItemCount,
+  Items_Dungeon_GetMapItemCountXY,
 
-  Items_Maps_SetItem,
-  Items_Maps_GetItem,
+  Items_Dungeon_SetItem,
+  Items_Dungeon_GetItem,
 
-  Items_Maps_SetMapItem,
-  Items_Maps_GetMapItem,
+  Items_Dungeon_SetMapItem,
+  Items_Dungeon_GetMapItem,
 
-  Items_Maps_SetMapItemXY,
-  Items_Maps_GetMapItemXY,
+  Items_Dungeon_SetMapItemXY,
+  Items_Dungeon_GetMapItemXY,
 
-  Items_Maps_SetItems,
-  Items_Maps_GetItems,
-  Items_Maps_GetMapItems,
-  Items_Maps_GetMapItemsXY,
+  Items_Dungeon_AppendItem,
+  Items_Dungeon_DeleteItem,
+  Items_Dungeon_DeleteItemXY,
 
-  Items_Maps_Items_Append,
-  Items_Maps_Items_Delete,
-  Items_Maps_Items_DeleteXY,
-
-  Items_Maps_GetMapItemAmountXY,
+  Items_Dungeon_GetMapItemAmountXY,
 
   // Inventory
   Items_Inventory_Clear,
@@ -55,11 +52,8 @@ exports
   Items_Inventory_SetItem,
   Items_Inventory_GetItem,
 
-  Items_Inventory_SetItems,
-  Items_Inventory_GetItems,
-
-  Items_Inventory_Items_Append,
-  Items_Inventory_Items_Delete;
+  Items_Inventory_AppendItem,
+  Items_Inventory_DeleteItem;
 
 begin
 

@@ -4,9 +4,6 @@ interface
 
 {TODO: Ограничение по весу и\или объему [Jesus05]}
 
-const
-  LibVersion = '0.4.0';
-
 type
   TItem = record
     ItemID: Integer;
@@ -21,11 +18,6 @@ type
 
 type
   TItems = array of TItem;
-
-// Library
-procedure Items_Open();
-procedure Items_Close();
-function Items_GetVersion(): PChar; stdcall;
 
 // Add
 procedure Items_Clear_Item(var AItem: TItem);
@@ -42,26 +34,7 @@ function GlobalIndex(AItems: TItems; MapID, Index: Integer; AX: Integer = -1; AY
 
 implementation
 
-uses uMaps, uInventory;
-
-// Library
-
-procedure Items_Open();
-begin
-  Items_Maps_Clear();
-  Items_Inventory_Clear();
-end;
-
-procedure Items_Close();
-begin
-  Items_Maps_Clear();
-  Items_Inventory_Clear();
-end;
-
-function Items_GetVersion(): PChar; stdcall;
-begin
-  Result := LibVersion;
-end;
+uses uDungeon, uInventory;
 
 //Add
 

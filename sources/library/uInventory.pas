@@ -13,11 +13,8 @@ function Items_Inventory_GetItemAmount(ItemID: Integer): Integer; stdcall;
 function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall;
 function Items_Inventory_GetItem(Index: Integer): TItem; stdcall;
 
-procedure Items_Inventory_GetItems(var AItems: TItems); stdcall;
-procedure Items_Inventory_SetItems(var AItems: TItems); stdcall;
-
-procedure Items_Inventory_Items_Append(AItem: TItem); stdcall;
-function Items_Inventory_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall;
+procedure Items_Inventory_AppendItem(AItem: TItem); stdcall;
+function Items_Inventory_DeleteItem(Index: Integer; var AItem: TItem): Boolean; stdcall;
 
 implementation
 
@@ -69,17 +66,7 @@ begin
   end;
 end;
 
-procedure Items_Inventory_GetItems(var AItems: TItems); stdcall;
-begin
-  AItems := InvItems;
-end;
-
-procedure Items_Inventory_SetItems(var AItems: TItems); stdcall;
-begin
-  InvItems := AItems;
-end;
-
-procedure Items_Inventory_Items_Append(AItem: TItem); stdcall;
+procedure Items_Inventory_AppendItem(AItem: TItem); stdcall;
 var
   I, J, A: Integer;
 begin
@@ -112,7 +99,7 @@ begin
   end else AddItem(InvItems, AItem);
 end;
 
-function Items_Inventory_Items_Delete(Index: Integer; var AItem: TItem): Boolean; stdcall;
+function Items_Inventory_DeleteItem(Index: Integer; var AItem: TItem): Boolean; stdcall;
 begin
   Result := False;
   if IndexInRange(InvItems, Index) then
