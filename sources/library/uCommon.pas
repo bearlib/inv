@@ -11,7 +11,7 @@ type
     MapID: Integer;
     Stack: Integer;
     Amount: Integer;
-//    Durability: Integer;
+    Durability: Integer;
 //    Weight: Integer;
 //    Size: Integer;
   end;
@@ -48,6 +48,7 @@ begin
     MapID := -1;
     Stack := 1;
     Amount := 1;
+    Durability := 0;
   end;
 end;
 

@@ -10,6 +10,7 @@ type
     MapID: Integer;
     Stack: Integer;
     Amount: Integer;
+    Durability: Integer;
   end;
 
 // Library
