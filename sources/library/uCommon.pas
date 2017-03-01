@@ -2,32 +2,30 @@ unit uCommon;
 
 interface
 
-{TODO: Ограничение по весу и\или объему [Jesus05]}
-
 type
-  TItem = record
+  Item = record
     ItemID: Integer;
     X, Y: Integer;
     MapID: Integer;
     Stack: Integer;
     Amount: Integer;
     Durability: Integer;
-//    Weight: Integer;
-//    Size: Integer;
+    Weight: Integer;
+    Size: Integer;
   end;
 
 type
-  TItems = array of TItem;
+  TItems = array of Item;
 
 // Add
-procedure Items_Clear_Item(var AItem: TItem);
+procedure Items_Clear_Item(var AItem: Item);
 
 // Common
 function HasItem(AItems: TItems; Index, AMapID: Integer): Boolean; overload;
 function HasItem(AItems: TItems; Index, AMapID: Integer; AX, AY: Integer): Boolean; overload;
 function IndexInRange(AItems: TItems; Index: Integer): Boolean;
-procedure AddItem(var AItems: TItems; AItem: TItem);
-function DelItem(var AItems: TItems; Index: Integer): TItem;
+procedure AddItem(var AItems: TItems; AItem: Item);
+function DelItem(var AItems: TItems; Index: Integer): Item;
 function HasEmpty(AItems: TItems): Boolean;
 procedure Empty(var AItems: TItems);
 function GlobalIndex(AItems: TItems; MapID, Index: Integer; AX: Integer = -1; AY: Integer = -1): Integer;
@@ -38,7 +36,7 @@ uses uDungeon, uInventory;
 
 //Add
 
-procedure Items_Clear_Item(var AItem: TItem);
+procedure Items_Clear_Item(var AItem: Item);
 begin
   with AItem do
   begin
@@ -71,13 +69,13 @@ begin
   Result := (Index >= 0) and (Index < Length(AItems));
 end;
 
-procedure AddItem(var AItems: TItems; AItem: TItem);
+procedure AddItem(var AItems: TItems; AItem: Item);
 begin
   SetLength(AItems, Length(AItems) + 1);
   AItems[Length(AItems) - 1] := AItem;
 end;
 
-function DelItem(var AItems: TItems; Index: Integer): TItem;
+function DelItem(var AItems: TItems; Index: Integer): Item;
 var
   I: Integer;
 begin

@@ -3,7 +3,7 @@ unit BeaRLibItems;
 interface
 
 type
-  TItem = record
+  Item = record
     ItemID: Integer;
     X: Integer;
     Y: Integer;
@@ -11,6 +11,8 @@ type
     Stack: Integer;
     Amount: Integer;
     Durability: Integer;
+    Weight: Integer;
+    Size: Integer;
   end;
 
 // Library
@@ -31,33 +33,40 @@ function Items_Dungeon_GetItemCount(ItemID: Integer): Integer; stdcall; external
 function Items_Dungeon_GetMapItemCount(MapID, ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Dungeon_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
-function Items_Dungeon_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
-function Items_Dungeon_GetItem(Index: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_SetItem(Index: Integer; AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_GetItem(Index: Integer): Item; stdcall; external 'BeaRLibItems.dll';
 
-function Items_Dungeon_SetMapItem(MapID, Index: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
-function Items_Dungeon_GetMapItem(MapID, Index: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_SetMapItem(MapID, Index: Integer; AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_GetMapItem(MapID, Index: Integer): Item; stdcall; external 'BeaRLibItems.dll';
 
-function Items_Dungeon_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
-function Items_Dungeon_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): Item; stdcall; external 'BeaRLibItems.dll';
 
-procedure Items_Dungeon_AppendItem(AItem: TItem); stdcall; external 'BeaRLibItems.dll';
-function Items_Dungeon_DeleteItem(Index: Integer; var AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
-function Items_Dungeon_DeleteItemXY(MapID: Integer; Index, AX, AY: Integer; var AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
+procedure Items_Dungeon_AppendItem(AItem: Item); stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_DeleteItem(Index: Integer; var AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_DeleteItemXY(MapID: Integer; Index, AX, AY: Integer; var AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
 
 function Items_Dungeon_GetMapItemAmountXY(MapID, ItemID, AX, AY: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
 // Inventory
 procedure Items_Inventory_Clear(); stdcall; external 'BeaRLibItems.dll';
-function Items_Inventory_GetCount(): Integer; stdcall; external 'BeaRLibItems.dll';
 
+function Items_Inventory_GetCount(): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_GetItemCount(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
+
+function Items_Inventory_GetWeight(): Integer; stdcall; external 'BeaRLibItems.dll';
+function Items_Inventory_GetItemWeight(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
+
+function Items_Inventory_GetSize(): Integer; stdcall; external 'BeaRLibItems.dll';
+function Items_Inventory_GetItemSize(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
+
 function Items_Inventory_GetItemAmount(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
-function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
-function Items_Inventory_GetItem(Index: Integer): TItem; stdcall; external 'BeaRLibItems.dll';
+function Items_Inventory_SetItem(Index: Integer; AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Inventory_GetItem(Index: Integer): Item; stdcall; external 'BeaRLibItems.dll';
 
-procedure Items_Inventory_AppendItem(AItem: TItem); stdcall; external 'BeaRLibItems.dll';
-function Items_Inventory_DeleteItem(Index: Integer; var AItem: TItem): Boolean; stdcall; external 'BeaRLibItems.dll';
+procedure Items_Inventory_AppendItem(AItem: Item); stdcall; external 'BeaRLibItems.dll';
+function Items_Inventory_DeleteItem(Index: Integer; var AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
 
 implementation
 

@@ -50,7 +50,7 @@ const
   procedure AddRandomItems(MapID, C: Integer);
   var
     I, D: Integer;
-    FItem: TItem;
+    FItem: Item;
   begin
     for I := 1 to C do
     begin
@@ -93,7 +93,7 @@ const
   procedure RenderDungeonItems(MapID: Integer);
   var
     I, Count: Integer;
-    FItem: TItem;
+    FItem: Item;
   begin
     Count := Items_Dungeon_GetMapCount(MapID);
     for I := Count - 1 downto 0 do
@@ -104,7 +104,7 @@ const
     end;
   end;
 
-  procedure RenderItemInfo(X, Y, I: Integer; AItem: TItem);
+  procedure RenderItemInfo(X, Y, I: Integer; AItem: Item);
   var
     N: Integer;
     S: string;
@@ -126,7 +126,7 @@ const
   procedure RenderTileInfo(MapID: Integer);
   var
     I, Count, X, Y: Integer;
-    FItem: TItem;
+    FItem: Item;
   begin
     if (Items_Dungeon_GetMapCount(MapID) = 0) then Exit;
     Count := Items_Dungeon_GetMapCountXY(MapID, Player.X, Player.Y);
@@ -152,7 +152,7 @@ const
 
 procedure Pickup(MapID, Index: Integer);
 var
-  AItem: TItem;
+  AItem: Item;
   N: Integer;
 begin
   Index := Index - 97;
@@ -183,7 +183,7 @@ end;
 
 procedure Drop(MapID, Index: Integer);
 var
-  AItem: TItem;
+  AItem: Item;
   N: Integer;
 
   procedure DeleteItem;
@@ -227,7 +227,7 @@ end;
 procedure RenderInventoryItems();
 var
   I, Count: Integer;
-  FItem: TItem;
+  FItem: Item;
 begin
   Count := Items_Inventory_GetCount();
   for I := 0 to Count - 1 do

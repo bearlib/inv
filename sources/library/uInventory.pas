@@ -5,16 +5,23 @@ interface
 uses uCommon;
 
 procedure Items_Inventory_Clear(); stdcall;
-function Items_Inventory_GetCount(): Integer; stdcall;
 
+function Items_Inventory_GetCount(): Integer; stdcall;
 function Items_Inventory_GetItemCount(ItemID: Integer): Integer; stdcall;
+
+function Items_Inventory_GetWeight(): Integer; stdcall;
+function Items_Inventory_GetItemWeight(ItemID: Integer): Integer; stdcall;
+
+function Items_Inventory_GetSize(): Integer; stdcall;
+function Items_Inventory_GetItemSize(ItemID: Integer): Integer; stdcall;
+
 function Items_Inventory_GetItemAmount(ItemID: Integer): Integer; stdcall;
 
-function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall;
-function Items_Inventory_GetItem(Index: Integer): TItem; stdcall;
+function Items_Inventory_SetItem(Index: Integer; AItem: Item): Boolean; stdcall;
+function Items_Inventory_GetItem(Index: Integer): Item; stdcall;
 
-procedure Items_Inventory_AppendItem(AItem: TItem); stdcall;
-function Items_Inventory_DeleteItem(Index: Integer; var AItem: TItem): Boolean; stdcall;
+procedure Items_Inventory_AppendItem(AItem: Item); stdcall;
+function Items_Inventory_DeleteItem(Index: Integer; var AItem: Item): Boolean; stdcall;
 
 implementation
 
@@ -41,6 +48,44 @@ begin
       Inc(Result);
 end;
 
+function Items_Inventory_GetWeight(): Integer; stdcall;
+var
+  I: Integer;
+begin
+  Result := 0;
+  for I := 0 to Length(InvItems) - 1 do
+    Inc(Result, InvItems[I].Weight);
+end;
+
+function Items_Inventory_GetItemWeight(ItemID: Integer): Integer; stdcall;
+var
+  I: Integer;
+begin
+  Result := 0;
+  for I := 0 to Length(InvItems) - 1 do
+    if (InvItems[I].ItemID = ItemID) then
+      Inc(Result, InvItems[I].Weight);
+end;
+
+function Items_Inventory_GetSize(): Integer; stdcall;
+var
+  I: Integer;
+begin
+  Result := 0;
+  for I := 0 to Length(InvItems) - 1 do
+    Inc(Result, InvItems[I].Size);
+end;
+
+function Items_Inventory_GetItemSize(ItemID: Integer): Integer; stdcall;
+var
+  I: Integer;
+begin
+  Result := 0;
+  for I := 0 to Length(InvItems) - 1 do
+    if (InvItems[I].ItemID = ItemID) then
+      Inc(Result, InvItems[I].Size);
+end;
+
 function Items_Inventory_GetItemAmount(ItemID: Integer): Integer; stdcall;
 var
   I: Integer;
@@ -51,12 +96,12 @@ begin
       Inc(Result, InvItems[I].Amount);
 end;
 
-function Items_Inventory_GetItem(Index: Integer): TItem; stdcall;
+function Items_Inventory_GetItem(Index: Integer): Item; stdcall;
 begin
   Result := InvItems[Index];
 end;
 
-function Items_Inventory_SetItem(Index: Integer; AItem: TItem): Boolean; stdcall;
+function Items_Inventory_SetItem(Index: Integer; AItem: Item): Boolean; stdcall;
 begin
   Result := False;
   if IndexInRange(InvItems, Index) then
@@ -66,7 +111,7 @@ begin
   end;
 end;
 
-procedure Items_Inventory_AppendItem(AItem: TItem); stdcall;
+procedure Items_Inventory_AppendItem(AItem: Item); stdcall;
 var
   I, J, A: Integer;
 begin
@@ -99,7 +144,7 @@ begin
   end else AddItem(InvItems, AItem);
 end;
 
-function Items_Inventory_DeleteItem(Index: Integer; var AItem: TItem): Boolean; stdcall;
+function Items_Inventory_DeleteItem(Index: Integer; var AItem: Item): Boolean; stdcall;
 begin
   Result := False;
   if IndexInRange(InvItems, Index) then

@@ -44,9 +44,16 @@ exports
 
   // Inventory
   Items_Inventory_Clear,
-  Items_Inventory_GetCount,
 
+  Items_Inventory_GetCount,
   Items_Inventory_GetItemCount,
+
+  Items_Inventory_GetWeight,
+  Items_Inventory_GetItemWeight,
+
+  Items_Inventory_GetSize,
+  Items_Inventory_GetItemSize,
+
   Items_Inventory_GetItemAmount,
 
   Items_Inventory_SetItem,
