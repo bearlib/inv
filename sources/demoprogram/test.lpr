@@ -33,18 +33,19 @@ type
   end;
 
 const
-  BaseItemsAmount = 8;
+  BaseItemsAmount = 9;
 
 const
   ItemBase: array [0..BaseItemsAmount - 1] of TItemBase = (
   (ID: 1;  Char: '('; Color: 10; MaxDurability: 30; Name: 'Short Sword'),
-  (ID: 2;  Char: '/'; Color: 11; MaxDurability: 35; Name: 'Long Sword'),
-  (ID: 3;  Char: '('; Color: 12; MaxDurability: 25; Name: 'Dark Axe'),
-  (ID: 4;  Char: '}'; Color: 13; MaxDurability: 10; Name: 'Short Bow'),
-  (ID: 5;  Char: '\'; Color: 14; MaxDurability: 12; Name: 'Spear'),
-  (ID: 6;  Char: '$'; Color: 14; MaxDurability:  0; Name: 'Gold'),
-  (ID: 7;  Char: '`'; Color: 14; MaxDurability:  0; Name: 'Key'),
-  (ID: 8;  Char: '"'; Color: 14; MaxDurability:  0; Name: 'Arrows')
+  (ID: 2;  Char: '/'; Color: 11; MaxDurability: 30; Name: 'Long Staff'),
+  (ID: 3;  Char: '('; Color: 11; MaxDurability: 35; Name: 'Dark Axe'),
+  (ID: 4;  Char: '/'; Color: 12; MaxDurability: 45; Name: 'Long Sword'),
+  (ID: 5;  Char: '}'; Color: 13; MaxDurability: 10; Name: 'Short Bow'),
+  (ID: 6;  Char: '\'; Color: 14; MaxDurability: 12; Name: 'Spear'),
+  (ID: 7;  Char: '$'; Color: 14; MaxDurability:  0; Name: 'Gold'),
+  (ID: 8;  Char: '`'; Color: 14; MaxDurability:  0; Name: 'Key'),
+  (ID: 9;  Char: '"'; Color: 14; MaxDurability:  0; Name: 'Arrows')
   );
 
   procedure AddRandomItems(MapID, C: Integer);
@@ -60,17 +61,17 @@ const
       FItem.Y := Math.RandomRange(1, MapHeight - 1);
       case FItem.ItemID of
         // Weapons
-        6: // Gold
+        7: // Gold
         begin
           FItem.Stack := 10;
           FItem.Amount := Math.RandomRange(0, 25) + 1;
         end;
-        7: // Key
+        8: // Keys
         begin
           FItem.Stack := 5;
           FItem.Amount := Math.RandomRange(0, 5) + 1;
         end;
-        8: // Arrows
+        9: // Arrows
         begin
           FItem.Stack := 50;
           FItem.Amount := Math.RandomRange(0, 100) + 1;
@@ -84,7 +85,7 @@ const
       if (FItem.Stack = 1) then
       begin
         D := ItemBase[FItem.ItemID - 1].MaxDurability;
-        FItem.Durability := Math.RandomRange(D div 3, D) + 1;
+        FItem.Durability := Math.RandomRange(D div 5, D) + 1;
       end;
       Items_Dungeon_AppendItem(FItem);
     end;
@@ -92,15 +93,16 @@ const
 
   procedure RenderDungeonItems(MapID: Integer);
   var
-    I, Count: Integer;
+    I, Index, Count: Integer;
     FItem: Item;
   begin
     Count := Items_Dungeon_GetMapCount(MapID);
     for I := Count - 1 downto 0 do
     begin
       FItem := Items_Dungeon_GetMapItem(MapID, I);
+      Index := FItem.ItemID - 1;
       ConioEngineWriteChar(FItem.X + 1, FItem.Y + 1,
-        ItemBase[FItem.ItemID - 1].Char, ItemBase[FItem.ItemID - 1].Color);
+        ItemBase[Index].Char, ItemBase[Index].Color);
     end;
   end;
 
@@ -118,8 +120,7 @@ const
       else
         S := '(' + IntToStr(AItem.Durability) + '/' + IntToStr(ItemBase[N].MaxDurability) + ')';
     ConioEngineWriteString(X, Y, '[' + Chr(I + 97) + ']', 15);
-    ConioEngineWriteString(X + 4, Y, ItemBase[N].Name
-      , ItemBase[N].Color);
+    ConioEngineWriteString(X + 4, Y, ItemBase[N].Name, ItemBase[N].Color);
     ConioEngineWriteString(X + Length(ItemBase[N].Name) + 5, Y, S, 8);
   end;
 
@@ -233,9 +234,9 @@ begin
   for I := 0 to Count - 1 do
   begin
     FItem := Items_Inventory_GetItem(I);
-    RenderItemInfo(6, I + 2, I, FItem);
+    RenderItemInfo(7, I + 2, I, FItem);
   end;
-  ConioEngineWriteString(33, 3, 'GOLD: ' + IntToStr(Items_Inventory_GetItemAmount(6)), 14);
+  ConioEngineWriteString(33, 3, 'GOLD: ' + IntToStr(Items_Inventory_GetItemAmount(7)), 14);
 end;
 
 var
@@ -305,9 +306,6 @@ begin
         end
       else
         case Key of
-          '1': begin
-                 Items_Dungeon_MapClearXY(CurrentMap, Player.X, Player.Y);
-               end;
           '+': if (CurrentMap < MapDeep - 1) then CurrentMap := CurrentMap + 1;
           '-': if (CurrentMap > 0) then CurrentMap := CurrentMap - 1;
           '2': Inc(Player.Y);
