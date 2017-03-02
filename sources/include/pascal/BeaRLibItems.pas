@@ -33,18 +33,18 @@ function Items_Dungeon_GetItemCount(ItemID: Integer): Integer; stdcall; external
 function Items_Dungeon_GetMapItemCount(MapID, ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Dungeon_GetMapItemCountXY(MapID, ItemID: Integer; AX, AY: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
-function Items_Dungeon_SetItem(Index: Integer; AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_SetItem(Index: Integer; AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Dungeon_GetItem(Index: Integer): Item; stdcall; external 'BeaRLibItems.dll';
 
-function Items_Dungeon_SetMapItem(MapID, Index: Integer; AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_SetMapItem(MapID, Index: Integer; AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Dungeon_GetMapItem(MapID, Index: Integer): Item; stdcall; external 'BeaRLibItems.dll';
 
-function Items_Dungeon_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Dungeon_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): Item; stdcall; external 'BeaRLibItems.dll';
 
 procedure Items_Dungeon_AppendItem(AItem: Item); stdcall; external 'BeaRLibItems.dll';
-function Items_Dungeon_DeleteItem(Index: Integer; var AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
-function Items_Dungeon_DeleteItemXY(MapID: Integer; Index, AX, AY: Integer; var AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_DeleteItem(Index: Integer; var AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
+function Items_Dungeon_DeleteItemXY(MapID: Integer; Index, AX, AY: Integer; var AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
 
 function Items_Dungeon_GetMapItemAmountXY(MapID, ItemID, AX, AY: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
@@ -62,11 +62,11 @@ function Items_Inventory_GetItemSize(ItemID: Integer): Integer; stdcall; externa
 
 function Items_Inventory_GetItemAmount(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
-function Items_Inventory_SetItem(Index: Integer; AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Inventory_SetItem(Index: Integer; AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_GetItem(Index: Integer): Item; stdcall; external 'BeaRLibItems.dll';
 
 procedure Items_Inventory_AppendItem(AItem: Item); stdcall; external 'BeaRLibItems.dll';
-function Items_Inventory_DeleteItem(Index: Integer; var AItem: Item): Boolean; stdcall; external 'BeaRLibItems.dll';
+function Items_Inventory_DeleteItem(Index: Integer; var AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
 
 implementation
 

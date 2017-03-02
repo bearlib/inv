@@ -168,17 +168,17 @@ begin
       AItem.Amount := AItem.Amount - N;
       if (AItem.Amount <= 0) then
       begin
-        if Items_Dungeon_DeleteItemXY(MapID, Index, Player.X, Player.Y, AItem) then
+        if (Items_Dungeon_DeleteItemXY(MapID, Index, Player.X, Player.Y, AItem) > 0)  then
           Items_Inventory_AppendItem(AItem);
         Exit;
       end;
-      if not Items_Dungeon_SetMapItemXY(MapID, Index, Player.X, Player.Y, AItem) then Exit;
+      if (Items_Dungeon_SetMapItemXY(MapID, Index, Player.X, Player.Y, AItem) = 0) then Exit;
       AItem.Amount := N;
       Items_Inventory_AppendItem(AItem);
     end;
     Exit;
   end;
-  if Items_Dungeon_DeleteItemXY(MapID, Index, Player.X, Player.Y, AItem) then
+  if (Items_Dungeon_DeleteItemXY(MapID, Index, Player.X, Player.Y, AItem) > 0) then
     Items_Inventory_AppendItem(AItem);
 end;
 
@@ -189,7 +189,7 @@ var
 
   procedure DeleteItem;
   begin
-    if Items_Inventory_DeleteItem(Index, AItem) then
+    if (Items_Inventory_DeleteItem(Index, AItem) > 0) then
     begin
       AItem.X := Player.X;
       AItem.Y := Player.Y;
@@ -214,7 +214,7 @@ begin
         DeleteItem;
         Exit;
       end;
-      if not Items_Inventory_SetItem(Index, AItem) then Exit;
+      if (Items_Inventory_SetItem(Index, AItem) = 0) then Exit;
       AItem.X := Player.X;
       AItem.Y := Player.Y;
       AItem.MapID := MapID;

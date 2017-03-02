@@ -17,6 +17,10 @@ type
 type
   TItems = array of Item;
 
+const
+  IntFalse = 0;
+  IntTrue = 1;
+
 // Add
 procedure Items_Clear_Item(var AItem: Item);
 
