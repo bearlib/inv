@@ -11,6 +11,7 @@ exports
   Items_Open,
   Items_Close,
   Items_GetVersion,
+  Items_Clear_Item,
 
   // Map
   Items_Dungeon_Clear,

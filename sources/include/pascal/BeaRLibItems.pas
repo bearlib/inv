@@ -4,7 +4,7 @@ interface
 
 type
   Item = record
-    ItemID: Integer;
+    ItemID: Integer;    
     X: Integer;
     Y: Integer;
     MapID: Integer;
@@ -19,6 +19,7 @@ type
 procedure Items_Open(); stdcall; external 'BeaRLibItems.dll';
 procedure Items_Close(); stdcall; external 'BeaRLibItems.dll';
 function Items_GetVersion(): PChar; stdcall; external 'BeaRLibItems.dll';
+procedure Items_Clear_Item(var AItem: Item);
 
 // Dungeon
 procedure Items_Dungeon_Clear(); stdcall; external 'BeaRLibItems.dll';
