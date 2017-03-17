@@ -19,7 +19,7 @@ type
 procedure Items_Open(); stdcall; external 'BeaRLibItems.dll';
 procedure Items_Close(); stdcall; external 'BeaRLibItems.dll';
 function Items_GetVersion(): PChar; stdcall; external 'BeaRLibItems.dll';
-procedure Items_Clear_Item(var AItem: Item);
+procedure Items_Clear_Item(var AItem: Item); external 'BeaRLibItems.dll';
 
 // Dungeon
 procedure Items_Dungeon_Clear(); stdcall; external 'BeaRLibItems.dll';
