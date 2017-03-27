@@ -23,6 +23,9 @@ function Items_Inventory_GetItem(Index: Integer): Item; stdcall;
 procedure Items_Inventory_AppendItem(AItem: Item); stdcall;
 function Items_Inventory_DeleteItem(Index: Integer; var AItem: Item): Integer; stdcall;
 
+function Items_Inventory_EquipItem(Index: Integer): Integer; stdcall;
+function Items_Inventory_UnEquipItem(Index: Integer): Integer; stdcall;
+
 implementation
 
 var
@@ -152,6 +155,39 @@ begin
     AItem := DelItem(InvItems, Index);
     Result := IntTrue;
   end;
+end;
+
+function Items_Inventory_EquipItem(Index: Integer): Integer; stdcall;
+var
+  I, FSlot: Integer;
+begin
+  Result := -1;
+  if IndexInRange(InvItems, Index) then
+  begin
+    FSlot := InvItems[Index].SlotID;
+    for I := 0 to Length(InvItems) - 1 do
+    begin
+      if (InvItems[I].SlotID = FSlot)
+        and (InvItems[I].Equipment = IntTrue) then
+      begin
+        InvItems[I].Equipment := IntFalse;
+        Result := I;
+        Break;
+      end;
+    end;
+    InvItems[Index].Equipment := IntTrue;
+  end;
+end;
+
+function Items_Inventory_UnEquipItem(Index: Integer): Integer; stdcall;
+begin
+  Result := IntFalse;
+  if IndexInRange(InvItems, Index) then
+    if (InvItems[Index].Equipment = IntTrue) then
+    begin
+      InvItems[Index].Equipment := IntFalse;
+      Result := IntTrue;
+    end;
 end;
 
 end.

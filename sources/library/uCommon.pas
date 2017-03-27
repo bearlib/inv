@@ -9,9 +9,10 @@ type
     MapID: Integer;
     Stack: Integer;
     Amount: Integer;
-    Durability: Integer;
+    Durability: Integer; 
     Weight: Integer;
     Size: Integer;
+    SlotID: Integer;
     Equipment: Integer;
   end;
 
@@ -54,11 +55,12 @@ begin
     Durability := 0;
     Weight := 1;
     Size := 1;
+    SlotID := 0;
     Equipment := 0;
   end;
 end;
 
-// Common
+// Common  
 
 function HasItem(AItems: TItems; Index, AMapID: Integer): Boolean;
 begin

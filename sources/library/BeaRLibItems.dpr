@@ -59,7 +59,10 @@ exports
   Items_Inventory_GetItem,
 
   Items_Inventory_AppendItem,
-  Items_Inventory_DeleteItem;
+  Items_Inventory_DeleteItem,
+
+  Items_Inventory_EquipItem,
+  Items_Inventory_UnEquipItem;
 
 begin
 
