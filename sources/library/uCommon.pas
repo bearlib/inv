@@ -12,6 +12,7 @@ type
     Durability: Integer;
     Weight: Integer;
     Size: Integer;
+    Equipment: Integer;
   end;
 
 type
@@ -51,6 +52,9 @@ begin
     Stack := 1;
     Amount := 1;
     Durability := 0;
+    Weight := 1;
+    Size := 1;
+    Equipment := 0;
   end;
 end;
 
