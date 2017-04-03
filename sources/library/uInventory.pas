@@ -101,7 +101,8 @@ end;
 
 function Items_Inventory_GetItem(Index: Integer): Item; stdcall;
 begin
-  Result := InvItems[Index];
+  if IndexInRange(InvItems, Index) then
+    Result := InvItems[Index];
 end;
 
 function Items_Inventory_SetItem(Index: Integer; AItem: Item): Integer; stdcall;
