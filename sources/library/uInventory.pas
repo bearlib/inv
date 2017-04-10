@@ -108,6 +108,11 @@ end;
 function Items_Inventory_SetItem(Index: Integer; AItem: Item): Integer; stdcall;
 begin
   Result := IntFalse;
+  if (AItem.Amount <= 0) then
+  begin
+    Result := Items_Inventory_DeleteItem(Index, AItem);
+    Exit;
+  end;
   if IndexInRange(InvItems, Index) then
   begin
     InvItems[Index] := AItem;

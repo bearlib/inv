@@ -14,6 +14,9 @@ exports
   Items_Close,
   Items_GetVersion,
 
+  // Common
+  Items_Clear_Item,
+
   // Map
   Items_Dungeon_Clear,
   Items_Dungeon_MapClear,
@@ -60,7 +63,10 @@ exports
   Items_Inventory_GetItem,
 
   Items_Inventory_AppendItem,
-  Items_Inventory_DeleteItem;
+  Items_Inventory_DeleteItem,
+
+  Items_Inventory_EquipItem,
+  Items_Inventory_UnEquipItem;
 
 begin
 
