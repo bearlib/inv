@@ -142,6 +142,7 @@ begin
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index);
   if (I < 0) then Exit;
+  if (AItem.Amount <= 0) and (Items_Dungeon_DeleteItem(Index, AItem) = IntTrue) then Exit;
   MapItems[I] := AItem;
   Result := IntTrue;
 end;
@@ -157,6 +158,7 @@ begin
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index);
   if (I < 0) then Exit;
+  if (FItem.Amount <= 0) then Exit;
   Result := MapItems[I];
 end;
 
@@ -169,6 +171,7 @@ begin
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index, AX, AY);
   if (I < 0) then Exit;
+  if (AItem.Amount <= 0) and (Items_Dungeon_DeleteItemXY(MapID, Index, AX, AY, AItem) = IntTrue) then Exit;
   MapItems[I] := AItem;
   Result := IntTrue;
 end;
@@ -184,6 +187,7 @@ begin
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index, AX, AY);
   if (I < 0) then Exit;
+  if (FItem.Amount <= 0) then Exit;
   Result := MapItems[I];
 end;
 
