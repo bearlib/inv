@@ -118,11 +118,6 @@ begin
         Inc(Result);
 end;
 
-function Items_Dungeon_GetItem(Index: Integer): Item; stdcall;
-begin
-  Result := MapItems[Index];
-end;
-
 function Items_Dungeon_SetItem(Index: Integer; AItem: Item): Integer; stdcall;
 begin
   Result := IntFalse;
@@ -131,6 +126,11 @@ begin
     MapItems[Index] := AItem;
     Result := IntTrue;
   end;
+end;
+
+function Items_Dungeon_GetItem(Index: Integer): Item; stdcall;
+begin
+  Result := MapItems[Index];
 end;
 
 function Items_Dungeon_SetMapItem(MapID, Index: Integer; AItem: Item): Integer; stdcall;
@@ -143,8 +143,7 @@ begin
   I := GlobalIndex(MapItems, MapID, Index);
   if (I < 0) then Exit;
   if (AItem.Amount <= 0) and (Items_Dungeon_DeleteItem(Index, AItem) = IntTrue) then Exit;
-  MapItems[I] := AItem;
-  Result := IntTrue;
+  Result := Items_Dungeon_SetItem(I, AItem);
 end;
 
 function Items_Dungeon_GetMapItem(MapID, Index: Integer): Item; stdcall;
@@ -158,7 +157,7 @@ begin
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index);
   if (I < 0) then Exit;
-  FItem := MapItems[I];
+  FItem := Items_Dungeon_GetItem(I);
   if (FItem.Amount <= 0) then Exit;
   Result := FItem;
 end;
@@ -173,8 +172,7 @@ begin
   I := GlobalIndex(MapItems, MapID, Index, AX, AY);
   if (I < 0) then Exit;
   if (AItem.Amount <= 0) and (Items_Dungeon_DeleteItemXY(MapID, Index, AX, AY, AItem) = IntTrue) then Exit;
-  MapItems[I] := AItem;
-  Result := IntTrue;
+  Result := Items_Dungeon_SetItem(I, AItem);
 end;
 
 function Items_Dungeon_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): Item; stdcall;
@@ -188,7 +186,7 @@ begin
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index, AX, AY);
   if (I < 0) then Exit;
-  FItem := MapItems[I];
+  FItem := Items_Dungeon_GetItem(I);
   if (FItem.Amount <= 0) then Exit;
   Result := FItem;
 end;
