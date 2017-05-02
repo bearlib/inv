@@ -158,8 +158,9 @@ begin
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index);
   if (I < 0) then Exit;
+  FItem := MapItems[I];
   if (FItem.Amount <= 0) then Exit;
-  Result := MapItems[I];
+  Result := FItem;
 end;
 
 function Items_Dungeon_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: Item): Integer; stdcall;
@@ -187,8 +188,9 @@ begin
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index, AX, AY);
   if (I < 0) then Exit;
+  FItem := MapItems[I];
   if (FItem.Amount <= 0) then Exit;
-  Result := MapItems[I];
+  Result := FItem;
 end;
 
 procedure Items_Dungeon_AppendItem(AItem: Item); stdcall;
