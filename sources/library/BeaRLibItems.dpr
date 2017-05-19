@@ -54,7 +54,8 @@ exports
   Items_Inventory_GetItemSize,
 
   Items_Inventory_GetItemAmount,
-
+  Items_Inventory_DeleteItemAmount,
+  
   Items_Inventory_SetItem,
   Items_Inventory_GetItem,
 

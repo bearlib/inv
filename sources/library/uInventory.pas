@@ -16,6 +16,7 @@ function Items_Inventory_GetSize(): Integer; stdcall;
 function Items_Inventory_GetItemSize(ItemID: Integer): Integer; stdcall;
 
 function Items_Inventory_GetItemAmount(ItemID: Integer): Integer; stdcall;
+function Items_Inventory_DeleteItemAmount(ItemID, Amount: Integer): Integer; stdcall;
 
 function Items_Inventory_SetItem(Index: Integer; AItem: Item): Integer; stdcall;
 function Items_Inventory_GetItem(Index: Integer): Item; stdcall;
@@ -97,6 +98,33 @@ begin
   for I := 0 to Length(InvItems) - 1 do
     if (InvItems[I].ItemID = ItemID) then
       Inc(Result, InvItems[I].Amount);
+end;
+
+function Items_Inventory_DeleteItemAmount(ItemID, Amount: Integer): Integer; stdcall;
+var
+  I, C: Integer;
+  FItem: Item;
+begin
+  Result := IntFalse;
+  if (Amount <= 0) or (Items_Inventory_GetItemAmount(ItemID) < Amount) then Exit;
+  C := Amount;
+  for I := 0 to Length(InvItems) - 1 do
+    if (InvItems[I].ItemID = ItemID) then
+    begin
+      Result := IntTrue;
+      if (InvItems[I].Amount >= C) then
+      begin
+        InvItems[I].Amount := InvItems[I].Amount - C;
+        if (InvItems[I].Amount <= 0) then
+        begin
+          Items_Inventory_DeleteItem(I, FItem);
+          Exit;
+        end;
+      end else begin
+        C := C - InvItems[I].Amount;
+        Items_Inventory_DeleteItem(I, FItem);
+      end;
+    end;
 end;
 
 function Items_Inventory_GetItem(Index: Integer): Item; stdcall;

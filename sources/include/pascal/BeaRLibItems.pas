@@ -64,6 +64,7 @@ function Items_Inventory_GetSize(): Integer; stdcall; external 'BeaRLibItems.dll
 function Items_Inventory_GetItemSize(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
 function Items_Inventory_GetItemAmount(ItemID: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
+function Items_Inventory_DeleteItemAmount(ItemID, Amount: Integer): Integer; stdcall; external 'BeaRLibItems.dll';
 
 function Items_Inventory_SetItem(Index: Integer; AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Inventory_GetItem(Index: Integer): Item; stdcall; external 'BeaRLibItems.dll';
