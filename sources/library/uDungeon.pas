@@ -158,7 +158,7 @@ begin
   I := GlobalIndex(MapItems, MapID, Index);
   if (I < 0) then Exit;
   FItem := Items_Dungeon_GetItem(I);
-  if (FItem.Amount <= 0) then Exit;
+  if (FItem.Amount < 0) then Exit;
   Result := FItem;
 end;
 
@@ -187,7 +187,7 @@ begin
   I := GlobalIndex(MapItems, MapID, Index, AX, AY);
   if (I < 0) then Exit;
   FItem := Items_Dungeon_GetItem(I);
-  if (FItem.Amount <= 0) then Exit;
+  if (FItem.Amount < 0) then Exit;
   Result := FItem;
 end;
 
