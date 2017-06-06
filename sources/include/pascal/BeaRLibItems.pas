@@ -10,6 +10,8 @@ type
     MapID: Integer;
     Stack: Integer;
     Amount: Integer;
+    MinDamage: Integer;
+    MaxDamage: Integer;
     Durability: Integer;
     Weight: Integer;
     Size: Integer;

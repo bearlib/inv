@@ -9,7 +9,9 @@ type
     MapID: Integer;
     Stack: Integer;
     Amount: Integer;
-    Durability: Integer; 
+    MinDamage: Integer;
+    MaxDamage: Integer;
+    Durability: Integer;
     Weight: Integer;
     Size: Integer;
     SlotID: Integer;
@@ -52,6 +54,8 @@ begin
     MapID := -1;
     Stack := 1;
     Amount := 1;
+    MinDamage := 0;
+    MaxDamage := 0;
     Durability := 0;
     Weight := 1;
     Size := 1;
