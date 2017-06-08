@@ -12,6 +12,7 @@ type
     MinDamage: Integer;
     MaxDamage: Integer;
     Durability: Integer;
+    MaxDurability: Integer;
     Weight: Integer;
     Size: Integer;
     SlotID: Integer;
@@ -57,6 +58,7 @@ begin
     MinDamage := 0;
     MaxDamage := 0;
     Durability := 0;
+    MaxDurability := 0;
     Weight := 1;
     Size := 1;
     SlotID := 0;
