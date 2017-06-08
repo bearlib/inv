@@ -11,6 +11,7 @@ type
     Amount: Integer;
     MinDamage: Integer;
     MaxDamage: Integer;
+    Defense: Integer;
     Durability: Integer;
     MaxDurability: Integer;
     Weight: Integer;
@@ -43,7 +44,7 @@ implementation
 
 uses uDungeon, uInventory;
 
-//Add
+// Add
 
 procedure Items_Clear_Item(var AItem: Item);
 begin
@@ -57,6 +58,7 @@ begin
     Amount := 1;
     MinDamage := 0;
     MaxDamage := 0;
+    Defense := 0;
     Durability := 0;
     MaxDurability := 0;
     Weight := 1;

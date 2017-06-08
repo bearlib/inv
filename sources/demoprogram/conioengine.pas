@@ -67,7 +67,7 @@ end;
 
 Procedure ConioEngineWriteString(X,Y : integer;s : string;color: byte);
 Var
-  W,P,I,M : Word;
+  P,I,M : Word;
 begin
   P:=((X-1)+(Y-1)*ScreenWidth);
   M:=Length(S);
