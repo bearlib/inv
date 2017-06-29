@@ -68,7 +68,7 @@ begin
   end;
 end;
 
-// Common  
+// Common
 
 function HasItem(AItems: TItems; Index, AMapID: Integer): Boolean;
 begin
@@ -89,8 +89,12 @@ end;
 
 procedure AddItem(var AItems: TItems; AItem: Item);
 begin
-  SetLength(AItems, Length(AItems) + 1);
-  AItems[Length(AItems) - 1] := AItem;
+  if (Length(AItems) <= Items_Inventory_GetSlotCount) then
+  begin
+    SetLength(AItems, Length(AItems) + 1);
+    AItems[Length(AItems) - 1] := AItem;
+    ..
+  end else
 end;
 
 function DelItem(var AItems: TItems; Index: Integer): Item;

@@ -27,10 +27,14 @@ function Items_Inventory_DeleteItem(Index: Integer; var AItem: Item): Integer; s
 function Items_Inventory_EquipItem(Index: Integer): Integer; stdcall;
 function Items_Inventory_UnEquipItem(Index: Integer): Integer; stdcall;
 
+procedure Items_Inventory_SetSlotCount(ACount: Integer);
+function Items_Inventory_GetSlotCount: Integer;
+
 implementation
 
 var
   InvItems: TItems;
+  SlotMax: Integer = 26;
 
 procedure Items_Inventory_Clear(); stdcall;
 begin
@@ -222,6 +226,17 @@ begin
       InvItems[Index].Equipment := IntFalse;
       Result := IntTrue;
     end;
+end;
+
+procedure Items_Inventory_SetSlotCount(ACount: Integer);
+begin
+  SlotMax := ACount;
+  if (SlotMax < 1) then SlotMax := 1;
+end;
+
+function Items_Inventory_GetSlotCount: Integer;
+begin
+  Result := SlotMax;
 end;
 
 end.
