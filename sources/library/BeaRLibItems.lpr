@@ -58,6 +58,7 @@ exports
   Items_Inventory_GetItemSize,
 
   Items_Inventory_GetItemAmount,
+  Items_Inventory_DeleteItemAmount,
 
   Items_Inventory_SetItem,
   Items_Inventory_GetItem,
@@ -66,7 +67,10 @@ exports
   Items_Inventory_DeleteItem,
 
   Items_Inventory_EquipItem,
-  Items_Inventory_UnEquipItem;
+  Items_Inventory_UnEquipItem,
+
+  Items_Inventory_SetSlotCount,
+  Items_Inventory_GetSlotCount;
 
 begin
 

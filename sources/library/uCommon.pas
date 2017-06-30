@@ -89,12 +89,14 @@ end;
 
 procedure AddItem(var AItems: TItems; AItem: Item);
 begin
-  if (Length(AItems) <= Items_Inventory_GetSlotCount) then
-  begin
+//  if (Length(AItems) <= Items_Inventory_GetSlotCount) then
+//  begin
     SetLength(AItems, Length(AItems) + 1);
     AItems[Length(AItems) - 1] := AItem;
-    ..
-  end else
+    {..}
+//  end else begin
+
+//  end;
 end;
 
 function DelItem(var AItems: TItems; Index: Integer): Item;

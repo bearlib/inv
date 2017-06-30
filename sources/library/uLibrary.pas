@@ -5,7 +5,7 @@ interface
 // Library
 procedure Items_Open();
 procedure Items_Close();
-function Items_GetVersion(): PChar; stdcall;
+function Items_GetVersion(): PWideChar; stdcall;
 
 implementation
 
@@ -28,7 +28,7 @@ begin
   Items_Inventory_Clear();
 end;
 
-function Items_GetVersion(): PChar; stdcall;
+function Items_GetVersion(): PWideChar; stdcall;
 begin
   Result := LibVersion;
 end;
