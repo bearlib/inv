@@ -3,8 +3,8 @@ unit uLibrary;
 interface
 
 // Library
-procedure Items_Open();
-procedure Items_Close();
+procedure Items_Open(); stdcall;
+procedure Items_Close(); stdcall;
 function Items_GetVersion(): PWideChar; stdcall;
 
 implementation
@@ -16,13 +16,13 @@ const
 
 // Library
 
-procedure Items_Open();
+procedure Items_Open(); stdcall;
 begin
   Items_Dungeon_Clear();
   Items_Inventory_Clear();
 end;
 
-procedure Items_Close();
+procedure Items_Close(); stdcall;
 begin
   Items_Dungeon_Clear();
   Items_Inventory_Clear();

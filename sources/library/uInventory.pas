@@ -27,8 +27,8 @@ function Items_Inventory_DeleteItem(Index: Integer; var AItem: Item): Integer; s
 function Items_Inventory_EquipItem(Index: Integer): Integer; stdcall;
 function Items_Inventory_UnEquipItem(Index: Integer): Integer; stdcall;
 
-procedure Items_Inventory_SetSlotCount(ACount: Integer);
-function Items_Inventory_GetSlotCount: Integer;
+procedure Items_Inventory_SetSlotCount(ACount: Integer); stdcall;
+function Items_Inventory_GetSlotCount: Integer; stdcall;
 
 implementation
 
@@ -228,13 +228,13 @@ begin
     end;
 end;
 
-procedure Items_Inventory_SetSlotCount(ACount: Integer);
+procedure Items_Inventory_SetSlotCount(ACount: Integer); stdcall;
 begin
   SlotMax := ACount;
   if (SlotMax < 1) then SlotMax := 1;
 end;
 
-function Items_Inventory_GetSlotCount: Integer;
+function Items_Inventory_GetSlotCount: Integer; stdcall;
 begin
   Result := SlotMax;
 end;
