@@ -19,6 +19,7 @@ type
     Size: Integer;
     SlotID: Integer;
     Equipment: Integer;
+    Price: Integer;
   end;
 
 type
@@ -67,6 +68,7 @@ begin
     Size := 1;
     SlotID := 0;
     Equipment := 0;
+    Price := 0;
   end;
 end;
 
