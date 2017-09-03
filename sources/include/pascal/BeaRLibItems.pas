@@ -8,6 +8,7 @@ type
     X: Integer;
     Y: Integer;
     MapID: Integer;
+    Ident: Integer;
     Stack: Integer;
     Amount: Integer;
     MinDamage: Integer;

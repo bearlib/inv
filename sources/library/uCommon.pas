@@ -7,6 +7,7 @@ type
     ItemID: Integer;
     X, Y: Integer;
     MapID: Integer;
+    Ident: Integer;
     Stack: Integer;
     Amount: Integer;
     MinDamage: Integer;
@@ -54,6 +55,7 @@ begin
     X := -1;
     Y := -1;
     MapID := -1;
+    Ident := -1;
     Stack := 1;
     Amount := 1;
     MinDamage := 0;
