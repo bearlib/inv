@@ -51,7 +51,7 @@ function Items_Dungeon_GetMapItem(MapID, Index: Integer): Item; stdcall; externa
 function Items_Dungeon_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Dungeon_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): Item; stdcall; external 'BeaRLibItems.dll';
 
-procedure Items_Dungeon_AppendItem(AItem: Item); stdcall; external 'BeaRLibItems.dll';
+procedure Items_Dungeon_AppendItem(AItem: Item; InHead: Boolean = False); stdcall; external 'BeaRLibItems.dll';
 function Items_Dungeon_DeleteItem(Index: Integer; var AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
 function Items_Dungeon_DeleteItemXY(MapID: Integer; Index, AX, AY: Integer; var AItem: Item): Integer; stdcall; external 'BeaRLibItems.dll';
 
