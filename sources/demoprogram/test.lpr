@@ -168,7 +168,7 @@ begin
       AItem.Amount := AItem.Amount - N;
       if (AItem.Amount <= 0) then
       begin
-        if (Items_Dungeon_DeleteItemXY(MapID, Index, Player.X, Player.Y, AItem) > 0)  then
+        if (Items_Dungeon_DeleteMapItemXY(MapID, Index, Player.X, Player.Y, AItem) > 0)  then
           Items_Inventory_AppendItem(AItem);
         Exit;
       end;
@@ -178,7 +178,7 @@ begin
     end;
     Exit;
   end;
-  if (Items_Dungeon_DeleteItemXY(MapID, Index, Player.X, Player.Y, AItem) > 0) then
+  if (Items_Dungeon_DeleteMapItemXY(MapID, Index, Player.X, Player.Y, AItem) > 0) then
     Items_Inventory_AppendItem(AItem);
 end;
 

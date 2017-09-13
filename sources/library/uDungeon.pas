@@ -26,8 +26,10 @@ function Items_Dungeon_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AIte
 function Items_Dungeon_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): Item; stdcall;
 
 procedure Items_Dungeon_AppendItem(AItem: Item; InHead: Boolean = False); stdcall;
+
 function Items_Dungeon_DeleteItem(Index: Integer; var AItem: Item): Integer; stdcall;
-function Items_Dungeon_DeleteItemXY(MapID: Integer; Index, AX, AY: Integer; var AItem: Item): Integer; stdcall;
+function Items_Dungeon_DeleteMapItem(MapID: Integer; Index: Integer; var AItem: Item): Integer; stdcall;
+function Items_Dungeon_DeleteMapItemXY(MapID: Integer; Index, AX, AY: Integer; var AItem: Item): Integer; stdcall;
 
 function Items_Dungeon_GetMapItemAmountXY(MapID, ItemID, AX, AY: Integer): Integer; stdcall;
 
@@ -171,7 +173,7 @@ begin
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index, AX, AY);
   if (I < 0) then Exit;
-  if (AItem.Amount <= 0) and (Items_Dungeon_DeleteItemXY(MapID, Index, AX, AY, AItem) = IntTrue) then Exit;
+  if (AItem.Amount <= 0) and (Items_Dungeon_DeleteMapItemXY(MapID, Index, AX, AY, AItem) = IntTrue) then Exit;
   Result := Items_Dungeon_SetItem(I, AItem);
 end;
 
@@ -251,7 +253,27 @@ begin
   end;
 end;
 
-function Items_Dungeon_DeleteItemXY(MapID: Integer; Index, AX, AY: Integer; var AItem: Item): Integer; stdcall;
+function Items_Dungeon_DeleteMapItem(MapID: Integer; Index: Integer; var AItem: Item): Integer; stdcall;
+var
+  I, P: Integer;
+begin
+  Result := IntFalse;
+  if not IndexInRange(MapItems, Index)then Exit;
+  P := 0;
+  for I := 0 to Length(MapItems) - 1 do
+    if HasItem(MapItems, I, MapID) then
+    begin
+      if (P = Index) then
+      begin
+        AItem := DelItem(MapItems, I);
+        Result := IntTrue;
+        Exit;
+      end;
+      Inc(P);
+    end;
+end;
+
+function Items_Dungeon_DeleteMapItemXY(MapID: Integer; Index, AX, AY: Integer; var AItem: Item): Integer; stdcall;
 var
   I, P: Integer;
 begin

@@ -36,8 +36,10 @@ exports
   Items_Dungeon_GetMapItemXY,
 
   Items_Dungeon_AppendItem,
+
   Items_Dungeon_DeleteItem,
-  Items_Dungeon_DeleteItemXY,
+  Items_Dungeon_DeleteMapItem,
+  Items_Dungeon_DeleteMapItemXY,
 
   Items_Dungeon_GetMapItemAmountXY,
 
