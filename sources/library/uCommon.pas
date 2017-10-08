@@ -20,6 +20,7 @@ type
     SlotID: Integer;
     Equipment: Integer;
     Price: Integer;
+    Bonus: Cardinal;
     Color: Cardinal;
   end;
 
@@ -70,6 +71,7 @@ begin
     SlotID := 0;
     Equipment := 0;
     Price := 0;
+    Bonus := 0;
     Color := $FFFFFFFF;
   end;
 end;
