@@ -153,8 +153,8 @@ var
   FItem: Item;
   I: Integer;
 begin
+  Items_Clear_Item(FItem);
   Result := FItem;
-  Items_Clear_Item(Result);
   if HasEmpty(MapItems) then Exit;
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index);
@@ -182,6 +182,7 @@ var
   FItem: Item;
   I: Integer;
 begin
+  FItem := nil;
   Result := FItem;
   Items_Clear_Item(Result);
   if HasEmpty(MapItems) then Exit;
@@ -197,7 +198,7 @@ procedure Items_Dungeon_AppendItem(AItem: Item; InHead: Boolean = False); stdcal
 var
   I, J, A: Integer;
 
-  procedure Add(var AItems: TItems; AItem: Item); stdcall;
+  procedure Add(AItem: Item); stdcall;
   var
     A, J: Integer;
   begin
@@ -239,8 +240,8 @@ begin
         AItem.Amount := J;
         AddItem(MapItems, AItem);
       end;
-    end else Add(MapItems, AItem);
-  end else Add(MapItems, AItem);
+    end else Add(AItem);
+  end else Add(AItem);
 end;
 
 function Items_Dungeon_DeleteItem(Index: Integer; var AItem: Item): Integer; stdcall;
