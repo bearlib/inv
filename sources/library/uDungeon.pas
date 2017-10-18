@@ -25,7 +25,7 @@ function Items_Dungeon_GetMapItem(MapID, Index: Integer): Item; stdcall;
 function Items_Dungeon_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: Item): Integer; stdcall;
 function Items_Dungeon_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): Item; stdcall;
 
-procedure Items_Dungeon_AppendItem(AItem: Item; InHead: Boolean = False); stdcall;
+procedure Items_Dungeon_AppendItem(AItem: Item); stdcall;
 
 function Items_Dungeon_DeleteItem(Index: Integer; var AItem: Item): Integer; stdcall;
 function Items_Dungeon_DeleteMapItem(MapID: Integer; Index: Integer; var AItem: Item): Integer; stdcall;
@@ -187,7 +187,7 @@ begin
   if (Result.Amount < 0) then Exit;
 end;
 
-procedure Items_Dungeon_AppendItem(AItem: Item; InHead: Boolean = False); stdcall;
+procedure Items_Dungeon_AppendItem(AItem: Item); stdcall;
 var
   I, J, A: Integer;
 
