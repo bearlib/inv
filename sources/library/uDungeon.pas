@@ -150,18 +150,15 @@ end;
 
 function Items_Dungeon_GetMapItem(MapID, Index: Integer): Item; stdcall;
 var
-  FItem: Item;
   I: Integer;
 begin
-  Items_Clear_Item(FItem);
-  Result := FItem;
+  Items_Clear_Item(Result);
   if HasEmpty(MapItems) then Exit;
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index);
   if (I < 0) then Exit;
-  FItem := Items_Dungeon_GetItem(I);
-  if (FItem.Amount < 0) then Exit;
-  Result := FItem;
+  Result := Items_Dungeon_GetItem(I);
+  if (Result.Amount < 0) then Exit;
 end;
 
 function Items_Dungeon_SetMapItemXY(MapID, Index: Integer; AX, AY: Integer; AItem: Item): Integer; stdcall;
@@ -179,19 +176,15 @@ end;
 
 function Items_Dungeon_GetMapItemXY(MapID, Index: Integer; AX, AY: Integer): Item; stdcall;
 var
-  FItem: Item;
   I: Integer;
 begin
-  FItem := nil;
-  Result := FItem;
   Items_Clear_Item(Result);
   if HasEmpty(MapItems) then Exit;
   if not IndexInRange(MapItems, Index) then Exit;
   I := GlobalIndex(MapItems, MapID, Index, AX, AY);
   if (I < 0) then Exit;
-  FItem := Items_Dungeon_GetItem(I);
-  if (FItem.Amount < 0) then Exit;
-  Result := FItem;
+  Result := Items_Dungeon_GetItem(I);
+  if (Result.Amount < 0) then Exit;
 end;
 
 procedure Items_Dungeon_AppendItem(AItem: Item; InHead: Boolean = False); stdcall;
