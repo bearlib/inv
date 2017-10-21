@@ -33,7 +33,7 @@
     </RunParams>
     <Units Count="1">
       <Unit0>
-        <Filename Value="BeaRLibItems.lpr"/>
+        <Filename Value="BeaRLibItems.dpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
     </Units>
