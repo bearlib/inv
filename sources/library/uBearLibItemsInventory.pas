@@ -1,8 +1,8 @@
-unit uInventory;
+unit uBearLibItemsInventory;
 
 interface
 
-uses uCommon;
+uses uBearLibItemsCommon;
 
 procedure Items_Inventory_Clear(); stdcall;
 

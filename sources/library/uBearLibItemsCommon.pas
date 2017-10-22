@@ -1,4 +1,4 @@
-unit uCommon;
+unit uBearLibItemsCommon;
 
 interface
 
@@ -52,7 +52,7 @@ function GlobalIndex(AItems: TItems; MapID, Index: Integer; AX: Integer = -1; AY
 
 implementation
 
-uses uDungeon, uInventory;
+uses uBearLibItemsDungeon, uBearLibItemsInventory;
 
 const
   LibVersion = '0.4.0';

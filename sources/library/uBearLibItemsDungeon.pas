@@ -1,8 +1,8 @@
-unit uDungeon;
+unit uBearLibItemsDungeon;
 
 interface
 
-uses uCommon;   
+uses uBearLibItemsCommon;
 
 procedure Items_Dungeon_Clear(); stdcall;
 procedure Items_Dungeon_MapClear(MapID: Integer); stdcall;
