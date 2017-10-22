@@ -1,9 +1,9 @@
 library BeaRLibItems;
 
 uses
-  uCommon in 'uCommon.pas',
-  uDungeon in 'uDungeon.pas',
-  uInventory in 'uInventory.pas';
+  uBearLibItemsCommon in 'uBearLibItemsCommon.pas',
+  uBearLibItemsDungeon in 'uBearLibItemsDungeon.pas',
+  uBearLibItemsInventory in 'uBearLibItemsInventory.pas';
 
 exports
   // Library
