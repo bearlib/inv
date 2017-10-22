@@ -2,7 +2,6 @@ library BeaRLibItems;
 
 uses
   uCommon in 'uCommon.pas',
-  uLibrary in 'uLibrary.pas',
   uDungeon in 'uDungeon.pas',
   uInventory in 'uInventory.pas';
 
