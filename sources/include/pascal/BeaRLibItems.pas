@@ -86,8 +86,14 @@ function Items_Inventory_DeleteItem(Index: Integer; var AItem: Item): Integer; s
 function Items_Inventory_EquipItem(Index: Integer): Integer; stdcall; external 'BeaRLibItems';
 function Items_Inventory_UnEquipItem(Index: Integer): Integer; stdcall; external 'BeaRLibItems';
 
-procedure Items_Inventory_SetSlotCount(ACount: Integer); stdcall; external 'BeaRLibItems';
-function Items_Inventory_GetSlotCount: Integer; stdcall; external 'BeaRLibItems';
+procedure Items_Inventory_SetMaxSlotCount(ACount: Integer); stdcall; external 'BeaRLibItems';
+function Items_Inventory_GetMaxSlotCount: Integer; stdcall; external 'BeaRLibItems';
+
+procedure Items_Inventory_SetMaxWeight(const Value: Integer); stdcall; external 'BeaRLibItems';
+function Items_Inventory_GetMaxWeight: Integer; stdcall; external 'BeaRLibItems';
+
+procedure Items_Inventory_SetMaxSize(const Value: Integer); stdcall; external 'BeaRLibItems';
+function Items_Inventory_GetMaxSize: Integer; stdcall; external 'BeaRLibItems';
 
 implementation
 

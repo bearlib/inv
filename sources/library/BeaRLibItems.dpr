@@ -64,7 +64,16 @@ exports
   Items_Inventory_DeleteItem,
 
   Items_Inventory_EquipItem,
-  Items_Inventory_UnEquipItem;
+  Items_Inventory_UnEquipItem,
+
+  Items_Inventory_SetMaxSlotCount,
+  Items_Inventory_GetMaxSlotCount,
+
+  Items_Inventory_SetMaxWeight,
+  Items_Inventory_GetMaxWeight,
+
+  Items_Inventory_SetMaxSize,
+  Items_Inventory_GetMaxSize;
 
 begin
 

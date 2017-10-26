@@ -27,14 +27,22 @@ function Items_Inventory_DeleteItem(Index: Integer; var AItem: Item): Integer; s
 function Items_Inventory_EquipItem(Index: Integer): Integer; stdcall;
 function Items_Inventory_UnEquipItem(Index: Integer): Integer; stdcall;
 
-procedure Items_Inventory_SetSlotCount(ACount: Integer); stdcall;
-function Items_Inventory_GetSlotCount: Integer; stdcall;
+procedure Items_Inventory_SetMaxSlotCount(ACount: Integer); stdcall;
+function Items_Inventory_GetMaxSlotCount: Integer; stdcall;
+
+procedure Items_Inventory_SetMaxWeight(const Value: Integer); stdcall;
+function Items_Inventory_GetMaxWeight: Integer; stdcall;
+
+procedure Items_Inventory_SetMaxSize(const Value: Integer); stdcall;
+function Items_Inventory_GetMaxSize: Integer; stdcall;
 
 implementation
 
 var
   InvItems: TItems;
   SlotMax: Integer = 26;
+  WeightMax: Integer = 100;
+  SizeMax: Integer = 100;
 
 procedure Items_Inventory_Clear(); stdcall;
 begin
@@ -228,15 +236,35 @@ begin
     end;
 end;
 
-procedure Items_Inventory_SetSlotCount(ACount: Integer); stdcall;
+procedure Items_Inventory_SetMaxSlotCount(ACount: Integer); stdcall;
 begin
   SlotMax := ACount;
   if (SlotMax < 1) then SlotMax := 1;
 end;
 
-function Items_Inventory_GetSlotCount: Integer; stdcall;
+function Items_Inventory_GetMaxSlotCount: Integer; stdcall;
 begin
   Result := SlotMax;
+end;
+
+procedure Items_Inventory_SetMaxWeight(const Value: Integer); stdcall;
+begin
+  WeightMax := Value;
+end;
+
+function Items_Inventory_GetMaxWeight: Integer; stdcall;
+begin
+  Result := WeightMax;
+end;
+
+procedure Items_Inventory_SetMaxSize(const Value: Integer); stdcall;
+begin
+  SizeMax := Value;
+end;
+
+function Items_Inventory_GetMaxSize: Integer; stdcall;
+begin
+  Result := SizeMax;
 end;
 
 end.
